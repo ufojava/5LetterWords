@@ -13,6 +13,9 @@
 		0365F6ED2454BC46002B220E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0365F6EC2454BC46002B220E /* Assets.xcassets */; };
 		0365F6F02454BC46002B220E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0365F6EF2454BC46002B220E /* Preview Assets.xcassets */; };
 		0365F6F32454BC46002B220E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0365F6F12454BC46002B220E /* LaunchScreen.storyboard */; };
+		0365F6FB2454BCB0002B220E /* 5LetterEasyDic.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 0365F6FA2454BCB0002B220E /* 5LetterEasyDic.JSON */; };
+		0365F6FF24555D3F002B220E /* DictionaryStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0365F6FE24555D3F002B220E /* DictionaryStructure.swift */; };
+		0365F70124555E4E002B220E /* JSONDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0365F70024555E4E002B220E /* JSONDataLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		0365F6EF2454BC46002B220E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0365F6F22454BC46002B220E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0365F6F42454BC46002B220E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0365F6FA2454BCB0002B220E /* 5LetterEasyDic.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5LetterEasyDic.JSON; sourceTree = "<group>"; };
+		0365F6FE24555D3F002B220E /* DictionaryStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryStructure.swift; sourceTree = "<group>"; };
+		0365F70024555E4E002B220E /* JSONDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDataLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +46,7 @@
 		0365F6DA2454BC42002B220E = {
 			isa = PBXGroup;
 			children = (
+				0365F6FA2454BCB0002B220E /* 5LetterEasyDic.JSON */,
 				0365F6E52454BC42002B220E /* 5LetterWords */,
 				0365F6E42454BC42002B220E /* Products */,
 			);
@@ -56,6 +63,8 @@
 		0365F6E52454BC42002B220E /* 5LetterWords */ = {
 			isa = PBXGroup;
 			children = (
+				0365F6FD24555C04002B220E /* Models */,
+				0365F6FC24555BF8002B220E /* Views */,
 				0365F6E62454BC42002B220E /* AppDelegate.swift */,
 				0365F6E82454BC42002B220E /* SceneDelegate.swift */,
 				0365F6EA2454BC42002B220E /* ContentView.swift */,
@@ -73,6 +82,22 @@
 				0365F6EF2454BC46002B220E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		0365F6FC24555BF8002B220E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0365F6FD24555C04002B220E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0365F6FE24555D3F002B220E /* DictionaryStructure.swift */,
+				0365F70024555E4E002B220E /* JSONDataLoader.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,6 +160,7 @@
 			files = (
 				0365F6F32454BC46002B220E /* LaunchScreen.storyboard in Resources */,
 				0365F6F02454BC46002B220E /* Preview Assets.xcassets in Resources */,
+				0365F6FB2454BCB0002B220E /* 5LetterEasyDic.JSON in Resources */,
 				0365F6ED2454BC46002B220E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,6 +175,8 @@
 				0365F6E72454BC42002B220E /* AppDelegate.swift in Sources */,
 				0365F6E92454BC42002B220E /* SceneDelegate.swift in Sources */,
 				0365F6EB2454BC42002B220E /* ContentView.swift in Sources */,
+				0365F6FF24555D3F002B220E /* DictionaryStructure.swift in Sources */,
+				0365F70124555E4E002B220E /* JSONDataLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
