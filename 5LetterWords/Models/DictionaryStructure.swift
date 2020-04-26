@@ -19,7 +19,7 @@ struct DictionaryStructure: Codable {
     
 }
 
-//Observable Object
+//Observable Object - I should be able to use this variable around the project
 class Letter: ObservableObject {
     
     @Published var word = ""

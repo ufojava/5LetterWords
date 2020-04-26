@@ -30,9 +30,6 @@ public class DataLoader: ObservableObject {
 
 
 
-
-
-
                         //Function to decode JSOn File
                         func decodeJSONFile() {
                             
