@@ -18,6 +18,14 @@ File name - 5LetterEasyDic.JSON
 public class DataLoader: ObservableObject {
     
     @Published var datastructure = [DictionaryStructure]()
+    
+        //Initialisze the data
+    
+    init() {
+        
+        //Decoded file
+        decodeJSONFile()
+    }
 
 
 
