@@ -58,6 +58,16 @@ struct Game: View {
     @State private var randomWord = ""
     @State private var sortedRandomWord = ""
     
+    
+    //Random Word Letters
+    @State private var randomFirstLetter = ""
+    @State private var randomSecondLetter = ""
+    @State private var randomThirdLetter = ""
+    @State private var randomFourthLetter = ""
+    @State private var randomFifthLetter = ""
+    
+    
+    
     //Function to get random word
     func getRandomWord() -> String {
         
@@ -72,6 +82,36 @@ struct Game: View {
         
     }
     
+    
+    //Process random word to get character
+    func extractChar(inRandomWord:String) {
+        
+        
+        //First letter
+        self.randomFirstLetter = String(inRandomWord[inRandomWord.startIndex])
+        
+        //Second Letter
+        self.randomSecondLetter = String(inRandomWord[inRandomWord.index(after: inRandomWord.startIndex)])
+        
+        //Third Letter
+        let localRandomThirdLetter = inRandomWord.index(inRandomWord.startIndex, offsetBy: 2)
+        
+        self.randomThirdLetter = String(inRandomWord[localRandomThirdLetter])
+        
+        //Forth Letter
+        let localRandomFourthLetter = inRandomWord.index(inRandomWord.startIndex, offsetBy: 3)
+        
+        self.randomFourthLetter = String(inRandomWord[localRandomFourthLetter])
+        
+        //Fifth Letter
+        self.randomFifthLetter = String(inRandomWord[inRandomWord.index(before: inRandomWord.endIndex)])
+        
+        
+        
+        
+        
+        
+    }
 
 
     
@@ -96,6 +136,10 @@ struct Game: View {
                         self.newRandomWord.toggle()
                         self.randomWord = self.getRandomWord()
                         self.sortedRandomWord = String(self.randomWord.sorted())
+                        
+                        //Run Index
+                        self.extractChar(inRandomWord: self.sortedRandomWord)
+                    
                        
                         
                         
@@ -110,6 +154,13 @@ struct Game: View {
                         
                         Text("Normal: \(self.randomWord)")
                         Text("Sorted \(self.sortedRandomWord)")
+                        
+                        //Display letters
+                        Text("First Letter: \(self.randomFirstLetter)")
+                        Text("Second Letter: \(self.randomSecondLetter)")
+                        Text("Third Letter: \(self.randomThirdLetter)")
+                        Text("Fourth Letter: \(self.randomFourthLetter)")
+                        Text("Fifth Letter: \(self.randomFifthLetter)")
                         
                        
                         
