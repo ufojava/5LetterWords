@@ -56,6 +56,12 @@ struct Game: View {
     
     @State private var newRandomWord = false
     @State private var randomWord = ""
+    
+    //Tile Display Word
+    @State private var displayRandomWord = ""
+    @State private var shuffledRandomWord = ""
+    
+    //Sorted word for player
     @State private var sortedRandomWord = ""
     
     
@@ -65,6 +71,14 @@ struct Game: View {
     @State private var randomThirdLetter = ""
     @State private var randomFourthLetter = ""
     @State private var randomFifthLetter = ""
+    
+    //Players Letter Pad
+    @State private var playerSortedFirstLetter = ""
+    @State private var playerSortedSecondLetter = ""
+    @State private var playerSortedThirdLetter = ""
+    @State private var playerSortedFourthLetter = ""
+    @State private var playerSortedFifthLetter = ""
+
     
     
     
@@ -84,7 +98,7 @@ struct Game: View {
     
     
     //Process random word to get character
-    func extractChar(inRandomWord:String) {
+    func extractRandomWordChar(inRandomWord:String) {
         
         
         //First letter
@@ -107,8 +121,27 @@ struct Game: View {
         self.randomFifthLetter = String(inRandomWord[inRandomWord.index(before: inRandomWord.endIndex)])
         
         
+    }
+    
+    //Process Player sorted word
+    func extractPlayerSortedChar(inSortedWord:String) {
         
+        //First Letter
+        self.playerSortedFirstLetter = String(inSortedWord[inSortedWord.startIndex])
         
+        //Second Letter
+        self.playerSortedSecondLetter = String(inSortedWord[inSortedWord.index(after: inSortedWord.startIndex)])
+        
+        //Third Letter
+        let localSortedThirdLetter = inSortedWord.index(inSortedWord.startIndex,offsetBy: 2)
+        self.playerSortedThirdLetter = String(inSortedWord[localSortedThirdLetter])
+        
+        //Forth Letter
+        let localSortedFourthLetter = inSortedWord.index(inSortedWord.startIndex,offsetBy: 3)
+        self.playerSortedFourthLetter = String(inSortedWord[localSortedFourthLetter])
+        
+        //Fifth and the last letter
+        self.playerSortedFifthLetter = String(inSortedWord[inSortedWord.index(before: inSortedWord.endIndex)])
         
         
     }
@@ -135,10 +168,20 @@ struct Game: View {
                         
                         self.newRandomWord.toggle()
                         self.randomWord = self.getRandomWord()
-                        self.sortedRandomWord = String(self.randomWord.sorted())
                         
-                        //Run Index
-                        self.extractChar(inRandomWord: self.sortedRandomWord)
+                        //Holder Variable for Random word generator
+                        self.displayRandomWord = self.randomWord
+                       
+                        
+                        //For Players
+                        self.sortedRandomWord = String(self.displayRandomWord.sorted())
+                        self.shuffledRandomWord = String(self.randomWord.shuffled())
+                        
+                        //Run Index for Random word
+                        self.extractRandomWordChar(inRandomWord: self.shuffledRandomWord)
+                        
+                        //Run index for Sorted word
+                        self.extractPlayerSortedChar(inSortedWord: self.sortedRandomWord)
                     
                        
                         
@@ -152,20 +195,43 @@ struct Game: View {
                     
                     if self.newRandomWord {
                         
-                        Text("Normal: \(self.randomWord)")
-                        Text("Sorted \(self.sortedRandomWord)")
-                        
-                        //Display letters
-                        Text("First Letter: \(self.randomFirstLetter)")
-                        Text("Second Letter: \(self.randomSecondLetter)")
-                        Text("Third Letter: \(self.randomThirdLetter)")
-                        Text("Fourth Letter: \(self.randomFourthLetter)")
-                        Text("Fifth Letter: \(self.randomFifthLetter)")
-                        
                        
                         
+                        Text("To be hidden: \(self.displayRandomWord)")
+                        Text("For Player \(self.sortedRandomWord)")
+                        Text("For Tiles: \(self.shuffledRandomWord)")
                         
-                        //Sort the string
+                        Text("Random Letters for Tiles")
+                        
+                        Spacer().frame(height:10)
+                        
+                        HStack {
+                        Text("\(self.randomFirstLetter)")
+                        Text("\(self.randomSecondLetter)")
+                        Text("\(self.randomThirdLetter)")
+                        Text("\(self.randomFourthLetter)")
+                        Text("\(self.randomFifthLetter)")
+                        }
+                       
+                        
+                        Spacer().frame(height:10)
+                        Text("Player Letter Pad")
+                        Spacer().frame(height:10)
+                        
+                        HStack {
+                            
+                            Text("\(self.playerSortedFirstLetter)")
+                            Text("\(self.playerSortedSecondLetter)")
+                            Text("\(self.playerSortedThirdLetter)")
+                            Text("\(self.playerSortedFourthLetter)")
+                            Text("\(self.playerSortedFifthLetter)")
+                            
+                            
+                            
+                            
+                        }
+                        
+                        
                         
                     }
                     
