@@ -80,28 +80,30 @@ struct Game: View {
     @State private var playerSortedFifthLetter = ""
     
     
-    //Played Letters
-    @State private var showPlayedLetters = false
+    //Show Letter State
+    @State private var showPickLetters = false
+    @State private var showRandomLetters = false
+    @State private var showPickedLetters = false
     
     //Played Letters One
     @State private var playedLetterOne = ""
-    @State private var playedLetterOneState = false
+   
     
     //Played Letters Two
     @State private var playedLetterTwo = ""
-    @State private var playedLetterTwoState = false
+   
     
     //Played Letters Three
     @State private var playedLetterThree = ""
-    @State private var playedLetterThreeState = false
+  
     
     //Played Letters Four
     @State private var playedLetterFour = ""
-    @State private var playedLetterFourState = false
+   
     
     //Played Letters Five
     @State private var playedLetterFive = ""
-    @State private var playedLetterFiveState = false
+   
 
     
     
@@ -221,7 +223,36 @@ struct Game: View {
                         
                     Button(action: {
                         
-                        self.newRandomWord.toggle()
+                        
+                        
+                            //Random Numbers
+                            
+                            self.showRandomLetters = true
+                            
+                      
+                        
+                        //Picker Letters
+                        
+                            
+                            //Delay delivery by 3 seconds
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            
+                            self.showPickLetters = true
+                            
+                            }
+                       
+                        
+                        //Picked Letters
+                    
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            self.showPickedLetters = true
+                            }
+                        
+                        
+                        
+                        
+                        self.newRandomWord = true
                         self.randomWord = self.getRandomWord()
                         
                         //Holder Variable for Random word generator
@@ -231,6 +262,12 @@ struct Game: View {
                         //For Players
                         self.sortedRandomWord = String(self.displayRandomWord.sorted())
                         self.shuffledRandomWord = String(self.randomWord.shuffled())
+                        
+                        //Check for correct display
+                        if self.shuffledRandomWord == self.displayRandomWord {
+                            
+                            self.shuffledRandomWord = String(self.randomWord.shuffled())
+                        }
                         
                         //Run Index for Random word
                         self.extractRandomWordChar(inRandomWord: self.shuffledRandomWord)
@@ -253,21 +290,26 @@ struct Game: View {
                             
                     }
                     
-                    Spacer().frame(height:30)
+                    Spacer().frame(height:20)
                     
                     if self.newRandomWord {
                         
                       
                         
                         
-                        //Text("To be hidden: \(self.displayRandomWord)")
-                        //Text("For Tiles: \(self.shuffledRandomWord)")
+                        
                         
                         //Shuffled Random Letter
                         
                         Spacer().frame(height:40)
+                        
+                        if showRandomLetters {
+                        
                         Text("Random Word")
                             .font(.custom("Chalkboard SE", size: 25))
+                            .transition(.slide)
+                            .animation(.default)
+                            
                         Spacer().frame(height:10)
                         HStack {
                             
@@ -278,14 +320,20 @@ struct Game: View {
                             RandomLetterSquare(inletter: self.randomFifthLetter)
                         
                         
-                        }//End of Random HStack
-                        
+                                
+                        }.transition(.slide)//End of Random HStack
+                            .animation(.default)
+                            
+                        }//End Show Randome Letters
                         
                        
-                        
+                        if self.showPickLetters {
+                            
                         Spacer().frame(height:40)
-                        Text("Player Letters Pad")
+                        Text("Pick Letter")
                             .font(.custom("Chalkboard SE", size: 25))
+                            .transition(.slide)
+                            .animation(.default)
                         Spacer().frame(height:10)
                         
                        //Sorted Random Letter
@@ -334,18 +382,34 @@ struct Game: View {
                                     
                                 }//End of TapGesture
                             
+                            ZStack {
+                            Rectangle()
+                                .frame(width:40,height: 40)
+                                .foregroundColor(Color.blue)
+                                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                            
+                                Text("⏎")
+                                    .foregroundColor(Color.white)
+                                    .font(.system(size: 30))
+                            }
                             
                         }//End of Sorted HStack
+                            .transition(.slide)
+                            .animation(.default)
                         
+                        }
                         
                     } //End of New Random Word
                         
                     if self.playerSortedFirstLetter != "" || self.playerSortedSecondLetter != "" || self.playerSortedThirdLetter != "" || self.playerSortedFourthLetter != "" || self.playerSortedFifthLetter != "" {
                         
-                    
+                        if self.showPickedLetters {
+                        
                         Spacer().frame(height:40)
-                        Text("Played Letters")
+                        Text("Picked Letters")
                             .font(.custom("Chalkboard SE", size: 25))
+                            .transition(.slide)
+                            .animation(.default)
                         
                         Group {
                         HStack {
@@ -355,7 +419,17 @@ struct Game: View {
                             PlayedLetterSquare(inletter: self.playedLetterThree)
                             PlayedLetterSquare(inletter: self.playedLetterFour)
                             PlayedLetterSquare(inletter: self.playedLetterFive)
-                            PlayedLetterSquare(inletter: "🔙")
+                           
+                            ZStack {
+                                    Rectangle()
+                                        .frame(width:40,height: 40)
+                                        .foregroundColor(Color.blue)
+                                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                                    
+                                        Text("❌")
+                                            .foregroundColor(Color.white)
+                                            .font(.system(size: 30))
+                            
                                 .onTapGesture {
                                     if self.playedLetterFive != "" {
                                         self.playedLetterFive = ""
@@ -375,21 +449,65 @@ struct Game: View {
                                     }
                             }//End of TapGesture
                             
-                            
-                            
-                            
+                            }
                             
                         }
+                        .transition(.slide)
+                        .animation(.default)
                         }
-                       
+                        }
                         
                     } //End of New Random Word
-                    }
+                    
+                    
+                    
+                    
+                    Spacer().frame(height:30)
+                    
+                        Text("Game Statistics")
+                            ZStack(alignment: .leading) {
+                                
+                                Rectangle()
+                                    .frame(width:350,height: 70)
+                                    .foregroundColor(.clear)
+                                
+                                
+                                    VStack(alignment: .leading) {
+                                        
+                                        HStack(spacing: 180) {
+                                            Text("Question Timer")
+                                                
+                                            Text("QT")
+                                        }
+                                        
+                                        HStack(spacing:180) {
+                                            Text("Correct Answer")
+                                            Text("Correct")
+                                            
+                                        }
+                                        
+                                        HStack(spacing:250) {
+                                            Text("Score")
+                                                
+                                             Text("12")
+                                        }
+                                        
+                                        HStack(spacing: 210) {
+                                        
+                                        Text("Game Timer")
+                                        
+                                        Text("12:00")
+                                        }
+                                    }
+                            }//Stats ZStack
+                    }//End of VStack
                  
                     
                     
                 
-        }
+        }//End of ZStack
+        
+        
     }
     
 }
