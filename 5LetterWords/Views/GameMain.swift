@@ -287,6 +287,7 @@ struct Game: View {
                             .background(Color.gray)
                             .foregroundColor(Color.black)
                             .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
+                        .shadow(radius: 6)
                             
                     }
                     
@@ -528,6 +529,7 @@ struct RandomLetterSquare: View {
                 .frame(width:40,height: 40)
                 .foregroundColor(Color.green)
                 .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                .shadow(radius: 6)
             
                 Text(inletter)
                     .foregroundColor(Color.blue)
@@ -558,6 +560,7 @@ struct SortedLetterSquare: View {
                 .frame(width:40,height: 40)
                 .foregroundColor(Color.orange)
                 .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                .shadow(radius: 6)
             
                 Text(inletter)
                     .foregroundColor(Color.blue)
@@ -589,6 +592,7 @@ struct PlayedLetterSquare: View {
                 .frame(width:40,height: 40)
                 .foregroundColor(Color.yellow)
                 .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                .shadow(radius: 6)
             
                 Text(inletter)
                     .foregroundColor(Color.blue)
