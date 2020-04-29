@@ -169,6 +169,35 @@ struct Game: View {
         
         
     }
+    
+    //Funtion to process Tap action
+    func playerOnTapAction(letterPlayed:String) {
+        
+        
+        
+        if self.playedLetterOne == "" {
+            
+            self.playedLetterOne = letterPlayed
+            
+        } else if self.playedLetterTwo == "" {
+            
+            self.playedLetterTwo = letterPlayed
+            
+        } else if self.playedLetterThree == "" {
+            
+            self.playedLetterThree = letterPlayed
+            
+        } else if self.playedLetterFour == "" {
+            
+            self.playedLetterFour = letterPlayed
+            
+        } else if self.playedLetterFive == "" {
+            
+            self.playedLetterFive = letterPlayed
+        }
+        
+        
+    }
 
 
     
@@ -264,123 +293,45 @@ struct Game: View {
                             
                             SortedLetterSquare(inletter: self.playerSortedFirstLetter)
                                 .onTapGesture {
-                                    if self.playedLetterOne == "" {
-                                        
-                                        self.playedLetterOne = self.playerSortedFirstLetter
-                                        
-                                    } else if self.playedLetterTwo == "" {
-                                        
-                                        self.playedLetterTwo = self.playerSortedFirstLetter
-                                        
-                                    } else if self.playedLetterThree == "" {
-                                        
-                                        self.playedLetterThree = self.playerSortedFirstLetter
-                                        
-                                    } else if self.playedLetterFour == "" {
-                                        
-                                        self.playedLetterFour = self.playerSortedFirstLetter
-                                        
-                                    } else if self.playedLetterFive == "" {
-                                        
-                                        self.playedLetterFive = self.playerSortedFirstLetter
-                                    }
+                                    
+                                    //Call Function playerOnTapAction
+                                    self.playerOnTapAction(letterPlayed: self.playerSortedFirstLetter)
+                                    
+                                   
                             }//End of TapGesture
                             
                             
                             SortedLetterSquare(inletter: self.playerSortedSecondLetter)
                                 .onTapGesture {
-                                        if self.playedLetterOne == "" {
-                                            
-                                            self.playedLetterOne = self.playerSortedSecondLetter
-                                            
-                                        } else if self.playedLetterTwo == "" {
-                                            
-                                            self.playedLetterTwo = self.playerSortedSecondLetter
-                                            
-                                        } else if self.playedLetterThree == "" {
-                                            
-                                            self.playedLetterThree = self.playerSortedSecondLetter
-                                            
-                                        } else if self.playedLetterFour == "" {
-                                            
-                                            self.playedLetterFour = self.playerSortedSecondLetter
-                                            
-                                        } else if self.playedLetterFive == "" {
-                                            
-                                            self.playedLetterFive = self.playerSortedSecondLetter
-                                        }
+                                    
+                                        //Call Function playerOnTapAction
+                                        self.playerOnTapAction(letterPlayed: self.playerSortedSecondLetter)
+                                    
                                 }//End of TapGesture
                             
                             
                             SortedLetterSquare(inletter: self.playerSortedThirdLetter)
                                 .onTapGesture {
-                                        if self.playedLetterOne == "" {
-                                            
-                                            self.playedLetterOne = self.playerSortedThirdLetter
-                                            
-                                        } else if self.playedLetterTwo == "" {
-                                            
-                                            self.playedLetterTwo = self.playerSortedThirdLetter
-                                            
-                                        } else if self.playedLetterThree == "" {
-                                            
-                                            self.playedLetterThree = self.playerSortedThirdLetter
-                                            
-                                        } else if self.playedLetterFour == "" {
-                                            
-                                            self.playedLetterFour = self.playerSortedThirdLetter
-                                            
-                                        } else if self.playedLetterFive == "" {
-                                            
-                                            self.playedLetterFive = self.playerSortedThirdLetter
-                                        }
+                                    
+                                    
+                                        //Call Function playerOnTapAction
+                                        self.playerOnTapAction(letterPlayed: self.playerSortedThirdLetter)
+                                    
                                 }//End of TapGesture
                                 
                             SortedLetterSquare(inletter: self.playerSortedFourthLetter)
                                 .onTapGesture {
-                                        if self.playedLetterOne == "" {
-                                            
-                                            self.playedLetterOne = self.playerSortedFourthLetter
-                                            
-                                        } else if self.playedLetterTwo == "" {
-                                            
-                                            self.playedLetterTwo = self.playerSortedFourthLetter
-                                            
-                                        } else if self.playedLetterThree == "" {
-                                            
-                                            self.playedLetterThree = self.playerSortedFourthLetter
-                                            
-                                        } else if self.playedLetterFour == "" {
-                                            
-                                            self.playedLetterFour = self.playerSortedFourthLetter
-                                            
-                                        } else if self.playedLetterFive == "" {
-                                            
-                                            self.playedLetterFive = self.playerSortedFourthLetter
-                                        }
+                                    
+                                        //Call Function playerOnTapAction
+                                        self.playerOnTapAction(letterPlayed: self.playerSortedFourthLetter)
+                                    
                                 }//End of TapGesture
                             SortedLetterSquare(inletter: self.playerSortedFifthLetter)
                                 .onTapGesture {
-                                        if self.playedLetterOne == "" {
-                                            
-                                            self.playedLetterOne = self.playerSortedFifthLetter
-                                            
-                                        } else if self.playedLetterTwo == "" {
-                                            
-                                            self.playedLetterTwo = self.playerSortedFifthLetter
-                                            
-                                        } else if self.playedLetterThree == "" {
-                                            
-                                            self.playedLetterThree = self.playerSortedFifthLetter
-                                            
-                                        } else if self.playedLetterFour == "" {
-                                            
-                                            self.playedLetterFour = self.playerSortedFifthLetter
-                                            
-                                        } else if self.playedLetterFive == "" {
-                                            
-                                            self.playedLetterFive = self.playerSortedFifthLetter
-                                        }
+                                    
+                                        //Call Function playerOnTapAction
+                                        self.playerOnTapAction(letterPlayed: self.playerSortedFifthLetter)
+                                    
                                 }//End of TapGesture
                             
                             
