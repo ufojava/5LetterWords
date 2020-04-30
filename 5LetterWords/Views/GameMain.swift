@@ -103,6 +103,10 @@ struct Game: View {
     
     //Played Letters Five
     @State private var playedLetterFive = ""
+    
+    
+    //Game Logo
+    @State private var gameLogoImage = true
    
 
     
@@ -282,7 +286,7 @@ struct Game: View {
                     }) {
                         
                         
-                        Text("Get Word")
+                        Text("Begin")
                             .frame(width:100,height: 30)
                             .background(Color.gray)
                             .foregroundColor(Color.black)
@@ -459,6 +463,38 @@ struct Game: View {
                         }
                         
                     } //End of New Random Word
+                    
+                    //Insert Game Logo
+                    
+                    if self.gameLogoImage {
+                        Spacer().frame(height:50)
+                        
+                        
+                        HStack {
+                            
+                            Text("WORDS")
+                                .font(.custom("Chalkboard SE", size: 20))
+                                .foregroundColor(Color.purple)
+                                
+                            
+                        ZStack {
+                           
+                            
+                           
+                            
+                            Rectangle()
+                                    .frame(width:230,height: 230)
+                                    .foregroundColor(Color.clear)
+                                    
+                                Image("Sun_GameLogo")
+                                    .resizable()
+                                    .frame(width:240,height: 240)
+                            
+                            }
+                        }
+                        
+                        
+                    }
                     
                     
                     
