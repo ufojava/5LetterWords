@@ -107,6 +107,9 @@ struct Game: View {
     
     //Game Logo
     @State private var gameLogoImage = true
+    
+    //Show Game Statistics
+    @State private var showGameStats = false
    
 
     
@@ -220,8 +223,8 @@ struct Game: View {
         
                 VStack {
                 
-                        Text("5 Letter Scramble")
-                            .font(.largeTitle)
+                        Text("5cramble")
+                            .font(.largeTitle).foregroundColor(Color.red).bold()
                             
                         Spacer().frame(height:40)
                         
@@ -230,6 +233,9 @@ struct Game: View {
                         //Make Logo disapear
                                              
                         self.gameLogoImage.toggle()
+                        
+                        
+                    
                         
                         
                         
@@ -256,6 +262,14 @@ struct Game: View {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 self.showPickedLetters.toggle()
                             }
+                        
+                        
+                        //Show Game Statistics
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            self.showGameStats.toggle()
+                        }
+                        
                         
                         
                         
@@ -292,8 +306,8 @@ struct Game: View {
                         
                         Text("Begin")
                             .frame(width:100,height: 30)
-                            .background(Color.gray)
-                            .foregroundColor(Color.black)
+                            .background(Color.blue)
+                            .foregroundColor(Color.yellow)
                             .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
                         .shadow(radius: 6)
                             
@@ -316,6 +330,7 @@ struct Game: View {
                         
                         Text("Random Word")
                             .font(.custom("Chalkboard SE", size: 25))
+                            .foregroundColor(Color.gray).bold()
                             .transition(.slide)
                             .animation(.default)
                             
@@ -341,6 +356,7 @@ struct Game: View {
                         Spacer().frame(height:40)
                         Text("Pick Letter")
                             .font(.custom("Chalkboard SE", size: 25))
+                            .foregroundColor(Color.gray).bold()
                             .transition(.slide)
                             .animation(.default)
                         Spacer().frame(height:10)
@@ -398,7 +414,7 @@ struct Game: View {
                                 .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
                             
                                 Text("⏎")
-                                    .foregroundColor(Color.white)
+                                    .foregroundColor(Color.yellow).bold()
                                     .font(.system(size: 30))
                             }
                             
@@ -417,6 +433,7 @@ struct Game: View {
                         Spacer().frame(height:40)
                         Text("Picked Letters")
                             .font(.custom("Chalkboard SE", size: 25))
+                            .foregroundColor(Color.gray).bold()
                             .transition(.slide)
                             .animation(.default)
                         
@@ -435,8 +452,8 @@ struct Game: View {
                                         .foregroundColor(Color.blue)
                                         .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
                                     
-                                        Text("❌")
-                                            .foregroundColor(Color.white)
+                                        Text("X")
+                                            .foregroundColor(Color.yellow)
                                             .font(.system(size: 30))
                             
                                 .onTapGesture {
@@ -476,12 +493,10 @@ struct Game: View {
                         
                         HStack {
                             
-                            Text("WORDS")
-                                .font(.custom("Chalkboard SE", size: 20))
-                                .foregroundColor(Color.purple)
-                                
                             
-                        ZStack {
+                            Spacer().frame(width:40)
+                            
+                            ZStack(alignment: .center) {
                            
                             
                            
@@ -493,6 +508,10 @@ struct Game: View {
                                 Image("Sun_GameLogo")
                                     .resizable()
                                     .frame(width:240,height: 240)
+                                
+                                Text("Alphabets")
+                                    .font(.custom("Gill Sans", size: 35))
+                                    .foregroundColor(Color.gray)
                             
                             }
                         }
@@ -507,7 +526,11 @@ struct Game: View {
                     
                     Spacer().frame(height:30)
                     
+                    if showGameStats {
+                    
                         Text("Game Statistics")
+                            .font(.custom("Courier", size: 25))
+                            .foregroundColor(Color.red)
                             ZStack(alignment: .leading) {
                                 
                                 Rectangle()
@@ -517,32 +540,56 @@ struct Game: View {
                                 
                                     VStack(alignment: .leading) {
                                         
-                                        HStack(spacing: 180) {
-                                            Text("Question Timer")
+                                        HStack(spacing: 175) {
+                                            Text("Question Timer:")
+                                                .font(.custom("Gill Sans", size: 20))
+                                                .foregroundColor(Color.gray)
                                                 
-                                            Text("QT")
+                                            Text("00:00")
+                                                .font(.custom("Gill Sans", size: 20))
+                                                .foregroundColor(Color.blue)
                                         }
                                         
-                                        HStack(spacing:180) {
-                                            Text("Correct Answer")
-                                            Text("Correct")
+                                        HStack(spacing:173) {
+                                            Text("Correct Answer:")
+                                                .font(.custom("Gill Sans", size: 20))
+                                                .foregroundColor(Color.gray)
+                                            
+                                            Text("0")
+                                                .font(.custom("Gill Sans", size: 20))
+                                                .foregroundColor(Color.blue)
                                             
                                         }
                                         
-                                        HStack(spacing:250) {
-                                            Text("Score")
+                                        HStack(spacing:259) {
+                                            Text("Score:")
+                                                .font(.custom("Gill Sans", size: 20))
+                                                .foregroundColor(Color.gray)
                                                 
-                                             Text("12")
+                                             Text("100")
+                                                .font(.custom("Gill Sans", size: 20))
+                                                .foregroundColor(Color.blue)
                                         }
                                         
-                                        HStack(spacing: 210) {
+                                        HStack(spacing: 205) {
                                         
-                                        Text("Game Timer")
+                                        Text("Game Timer:")
+                                            .font(.custom("Gill Sans", size: 20))
+                                            .foregroundColor(Color.gray)
                                         
                                         Text("12:00")
+                                                .font(.custom("Gill Sans", size: 20))
+                                                .foregroundColor(Color.blue)
                                         }
                                     }
+                        
                             }//Stats ZStack
+                     
+                                .transition(.slide)
+                                .animation(.default)
+                    }//End of Show Stats
+                    
+                    
                     }//End of VStack
                  
                     
