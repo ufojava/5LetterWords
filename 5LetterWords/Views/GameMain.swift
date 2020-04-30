@@ -227,11 +227,15 @@ struct Game: View {
                         
                     Button(action: {
                         
+                        //Make Logo disapear
+                                             
+                        self.gameLogoImage.toggle()
+                        
                         
                         
                             //Random Numbers
                             
-                            self.showRandomLetters = true
+                        self.showRandomLetters.toggle()
                             
                       
                         
@@ -241,7 +245,7 @@ struct Game: View {
                             //Delay delivery by 3 seconds
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             
-                            self.showPickLetters = true
+                                self.showPickLetters.toggle()
                             
                             }
                        
@@ -250,7 +254,7 @@ struct Game: View {
                     
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            self.showPickedLetters = true
+                                self.showPickedLetters.toggle()
                             }
                         
                         
@@ -467,7 +471,7 @@ struct Game: View {
                     //Insert Game Logo
                     
                     if self.gameLogoImage {
-                        Spacer().frame(height:50)
+                        Spacer().frame(height:40)
                         
                         
                         HStack {
@@ -492,6 +496,8 @@ struct Game: View {
                             
                             }
                         }
+                        .transition(.slide)
+                        .animation(.default)
                         
                         
                     }
