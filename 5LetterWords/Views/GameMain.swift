@@ -304,8 +304,8 @@ struct Game: View {
                     }) {
                         
                         
-                        Text("Begin")
-                            .frame(width:100,height: 30)
+                        Text("Begin / Close")
+                            .frame(width:150,height: 40)
                             .background(Color.blue)
                             .foregroundColor(Color.yellow)
                             .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
