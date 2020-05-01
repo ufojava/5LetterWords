@@ -106,7 +106,7 @@ struct Game: View {
     
     
     //Game Logo
-    @State private var gameLogoImage = true
+    @State private var gameLogoImage = false
     
     //Show Game Statistics
     @State private var showGameStats = false
@@ -225,17 +225,29 @@ struct Game: View {
                 
                         Text("5cramble")
                             .font(.largeTitle).foregroundColor(Color.red).bold()
+                    
+                            .onAppear() {
+                                
+                                self.gameLogoImage = true
+                    }
                             
                         Spacer().frame(height:40)
                         
                     Button(action: {
                         
                         //Make Logo disapear
-                                             
-                        self.gameLogoImage.toggle()
                         
+                        if self.gameLogoImage {
                         
-                    
+                       self.gameLogoImage.toggle()
+                            
+                        } else if self.gameLogoImage == false {
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                            self.gameLogoImage.toggle()
+                        }
+                        }
+                       
                         
                         
                         
@@ -438,88 +450,102 @@ struct Game: View {
                             .animation(.default)
                         
                         Group {
-                        HStack {
-                            
-                            PlayedLetterSquare(inletter: self.playedLetterOne)
-                            PlayedLetterSquare(inletter: self.playedLetterTwo)
-                            PlayedLetterSquare(inletter: self.playedLetterThree)
-                            PlayedLetterSquare(inletter: self.playedLetterFour)
-                            PlayedLetterSquare(inletter: self.playedLetterFive)
-                           
-                            ZStack {
-                                    Rectangle()
-                                        .frame(width:40,height: 40)
-                                        .foregroundColor(Color.blue)
-                                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                                HStack {
                                     
-                                        Text("X")
-                                            .foregroundColor(Color.yellow)
-                                            .font(.system(size: 30))
-                            
-                                .onTapGesture {
-                                    if self.playedLetterFive != "" {
-                                        self.playedLetterFive = ""
-                                        
-                                    } else if self.playedLetterFour != "" {
-                                        self.playedLetterFour = ""
-                                        
-                                    } else if self.playedLetterThree != "" {
-                                        self.playedLetterThree = ""
-                                        
-                                    } else if self.playedLetterTwo != "" {
-                                        self.playedLetterTwo = ""
-                                        
-                                    } else if self.playedLetterOne != "" {
-                                        self.playedLetterOne = ""
-                                        
+                                    PlayedLetterSquare(inletter: self.playedLetterOne)
+                                    PlayedLetterSquare(inletter: self.playedLetterTwo)
+                                    PlayedLetterSquare(inletter: self.playedLetterThree)
+                                    PlayedLetterSquare(inletter: self.playedLetterFour)
+                                    PlayedLetterSquare(inletter: self.playedLetterFive)
+                                   
+                                    ZStack {
+                                            Rectangle()
+                                                .frame(width:40,height: 40)
+                                                .foregroundColor(Color.blue)
+                                                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                                            
+                                                Text("X")
+                                                    .foregroundColor(Color.yellow)
+                                                    .font(.system(size: 30))
+                                    
+                                        .onTapGesture {
+                                            if self.playedLetterFive != "" {
+                                                self.playedLetterFive = ""
+                                                
+                                            } else if self.playedLetterFour != "" {
+                                                self.playedLetterFour = ""
+                                                
+                                            } else if self.playedLetterThree != "" {
+                                                self.playedLetterThree = ""
+                                                
+                                            } else if self.playedLetterTwo != "" {
+                                                self.playedLetterTwo = ""
+                                                
+                                            } else if self.playedLetterOne != "" {
+                                                self.playedLetterOne = ""
+                                                
+                                            }
+                                    }//End of TapGesture
+                                    
                                     }
-                            }//End of TapGesture
+                                    
+                                }
+                                .transition(.slide)
+                                .animation(.default)
                             
-                            }
-                            
-                        }
-                        .transition(.slide)
-                        .animation(.default)
-                        }
+                        }//End of Group
                         }
                         
                     } //End of New Random Word
                     
-                    //Insert Game Logo
                     
-                    if self.gameLogoImage {
+                    Group {
+                    
+                                //Insert Game Logo
+                                
+                                if self.gameLogoImage {
+                                    
+                                    Spacer().frame(height:40)
+                                    
+                                    
+                                    HStack {
+                                        
+                                        
+                                        Spacer().frame(width:40)
+                                        
+                                        ZStack(alignment: .center) {
+                                       
+                                        
+                                       
+                                        
+                                        Rectangle()
+                                                .frame(width:230,height: 230)
+                                                .foregroundColor(Color.clear)
+                                                
+                                            Image("Sun_GameLogo")
+                                                .resizable()
+                                                .frame(width:240,height: 240)
+                                            
+                                            Text("Alphabets")
+                                                .font(.custom("Gill Sans", size: 35))
+                                                .foregroundColor(Color.gray)
+                                        
+                                        }
+                                        
+                                        
+                                    }
+                                    .transition(.slide)
+                                    .animation(.default)
+                                    
+                                    
+                                    
+                                }
+                
+                    
+                    }//End of Group
+                        
                         Spacer().frame(height:40)
                         
-                        
-                        HStack {
-                            
-                            
-                            Spacer().frame(width:40)
-                            
-                            ZStack(alignment: .center) {
-                           
-                            
-                           
-                            
-                            Rectangle()
-                                    .frame(width:230,height: 230)
-                                    .foregroundColor(Color.clear)
-                                    
-                                Image("Sun_GameLogo")
-                                    .resizable()
-                                    .frame(width:240,height: 240)
-                                
-                                Text("Alphabets")
-                                    .font(.custom("Gill Sans", size: 35))
-                                    .foregroundColor(Color.gray)
-                            
-                            }
-                        }
-                        .transition(.slide)
-                        .animation(.default)
-                        
-                        
-                    }
                     
                     
                     
@@ -527,6 +553,8 @@ struct Game: View {
                     Spacer().frame(height:30)
                     
                     if showGameStats {
+                        
+                        VStack {
                     
                         Text("Game Statistics")
                             .font(.custom("Courier", size: 25))
@@ -584,6 +612,10 @@ struct Game: View {
                                     }
                         
                             }//Stats ZStack
+                            
+                            
+                                
+                        }//End of Vstack for show Stats
                      
                                 .transition(.slide)
                                 .animation(.default)
