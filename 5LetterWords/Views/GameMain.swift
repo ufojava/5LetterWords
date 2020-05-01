@@ -110,6 +110,13 @@ struct Game: View {
     
     //Show Game Statistics
     @State private var showGameStats = false
+    
+    
+    //Play Inro Music
+    @State private var playIntroMusic = true
+    
+    //Play Background Music
+    @State private var playBackgroundMusic = false
    
 
     
@@ -220,6 +227,19 @@ struct Game: View {
             //Set background
             LinearGradient(gradient: Gradient(colors: [.blue, .white,.green]), startPoint: .topLeading, endPoint: .bottomTrailing)
                 .edgesIgnoringSafeArea(.all)
+            
+                .onAppear() {
+                    
+                    if self.playIntroMusic {
+                        
+                        gameAudioPlayerNormal(sound: "UfoSymphonyShaker", type: "mp3")
+                        
+                        //Toggle Music Play State
+                        self.playIntroMusic.toggle()
+                        
+                    }
+                    
+            }
         
                 VStack {
                 
@@ -382,6 +402,9 @@ struct Game: View {
                                     //Call Function playerOnTapAction
                                     self.playerOnTapAction(letterPlayed: self.playerSortedFirstLetter)
                                     
+                                    //Speak Letter
+                                    gameSpeech(word: self.playerSortedFirstLetter.lowercased())
+                                    
                                    
                             }//End of TapGesture
                             
@@ -391,6 +414,9 @@ struct Game: View {
                                     
                                         //Call Function playerOnTapAction
                                         self.playerOnTapAction(letterPlayed: self.playerSortedSecondLetter)
+                                    
+                                        //Speak Letter
+                                        gameSpeech(word: self.playerSortedSecondLetter.lowercased())
                                     
                                 }//End of TapGesture
                             
@@ -402,6 +428,9 @@ struct Game: View {
                                         //Call Function playerOnTapAction
                                         self.playerOnTapAction(letterPlayed: self.playerSortedThirdLetter)
                                     
+                                        //Speak Letter
+                                        gameSpeech(word: self.playerSortedThirdLetter.lowercased())
+                                    
                                 }//End of TapGesture
                                 
                             SortedLetterSquare(inletter: self.playerSortedFourthLetter)
@@ -410,12 +439,18 @@ struct Game: View {
                                         //Call Function playerOnTapAction
                                         self.playerOnTapAction(letterPlayed: self.playerSortedFourthLetter)
                                     
+                                        //Speak Letter
+                                        gameSpeech(word: self.playerSortedFourthLetter.lowercased())
+                                    
                                 }//End of TapGesture
                             SortedLetterSquare(inletter: self.playerSortedFifthLetter)
                                 .onTapGesture {
                                     
                                         //Call Function playerOnTapAction
                                         self.playerOnTapAction(letterPlayed: self.playerSortedFifthLetter)
+                                    
+                                        //Speak Letter
+                                        gameSpeech(word: self.playerSortedFifthLetter.lowercased())
                                     
                                 }//End of TapGesture
                             
@@ -428,6 +463,9 @@ struct Game: View {
                                 Text("⏎")
                                     .foregroundColor(Color.yellow).bold()
                                     .font(.system(size: 30))
+                                    .onTapGesture {
+                                        gameAudioPlayerNormal(sound: "ReturnKeySound", type: "mp3")
+                                }
                             }
                             
                         }//End of Sorted HStack
@@ -467,22 +505,30 @@ struct Game: View {
                                                 Text("X")
                                                     .foregroundColor(Color.yellow)
                                                     .font(.system(size: 30))
+                                                   
+                                                        
+                                               
                                     
                                         .onTapGesture {
                                             if self.playedLetterFive != "" {
                                                 self.playedLetterFive = ""
+                                                gameAudioPlayerNormal(sound: "5LetterBackSpace", type: "mp3")
                                                 
                                             } else if self.playedLetterFour != "" {
                                                 self.playedLetterFour = ""
+                                                gameAudioPlayerNormal(sound: "5LetterBackSpace", type: "mp3")
                                                 
                                             } else if self.playedLetterThree != "" {
                                                 self.playedLetterThree = ""
+                                                gameAudioPlayerNormal(sound: "5LetterBackSpace", type: "mp3")
                                                 
                                             } else if self.playedLetterTwo != "" {
                                                 self.playedLetterTwo = ""
+                                                gameAudioPlayerNormal(sound: "5LetterBackSpace", type: "mp3")
                                                 
                                             } else if self.playedLetterOne != "" {
                                                 self.playedLetterOne = ""
+                                                gameAudioPlayerNormal(sound: "5LetterBackSpace", type: "mp3")
                                                 
                                             }
                                     }//End of TapGesture
@@ -559,6 +605,23 @@ struct Game: View {
                         Text("Game Statistics")
                             .font(.custom("Courier", size: 25))
                             .foregroundColor(Color.red)
+                            .onAppear() {
+                                
+                                self.playBackgroundMusic.toggle()
+                                
+                                if self.playBackgroundMusic {
+                                    
+                                    gameAudioPlayerBackground(sound: "UfoSymphonyMultiBeat", type: "mp3")
+                                }
+                                
+                            }
+                            
+                        .onDisappear() {
+                            
+                            stopBackgroundSound()
+                            
+                            }
+                            
                             ZStack(alignment: .leading) {
                                 
                                 Rectangle()

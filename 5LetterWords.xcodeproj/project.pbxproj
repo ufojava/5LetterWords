@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		032DC3D5245CC40D00350C6B /* GameSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032DC3D4245CC40D00350C6B /* GameSound.swift */; };
+		032DC3D7245CCF4C00350C6B /* Clock_CountDown.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 032DC3D6245CCF4C00350C6B /* Clock_CountDown.mp3 */; };
+		032DC3DC245CD45900350C6B /* 5LetterBackSpace.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 032DC3D8245CD45900350C6B /* 5LetterBackSpace.mp3 */; };
+		032DC3DD245CD45900350C6B /* ReturnKeySound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 032DC3D9245CD45900350C6B /* ReturnKeySound.mp3 */; };
+		032DC3DE245CD45900350C6B /* IncorrectSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 032DC3DA245CD45900350C6B /* IncorrectSound.mp3 */; };
+		032DC3DF245CD45900350C6B /* CorrectSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 032DC3DB245CD45900350C6B /* CorrectSound.mp3 */; };
+		032DC3E1245CDC6900350C6B /* UfoSymphonyShaker.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 032DC3E0245CDC6900350C6B /* UfoSymphonyShaker.mp3 */; };
+		032DC3E3245CE6B800350C6B /* UfoSymphonyMultiBeat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 032DC3E2245CE6B800350C6B /* UfoSymphonyMultiBeat.mp3 */; };
 		0365F6E72454BC42002B220E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0365F6E62454BC42002B220E /* AppDelegate.swift */; };
 		0365F6E92454BC42002B220E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0365F6E82454BC42002B220E /* SceneDelegate.swift */; };
 		0365F6EB2454BC42002B220E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0365F6EA2454BC42002B220E /* ContentView.swift */; };
@@ -21,6 +29,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		032DC3D4245CC40D00350C6B /* GameSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSound.swift; sourceTree = "<group>"; };
+		032DC3D6245CCF4C00350C6B /* Clock_CountDown.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Clock_CountDown.mp3; sourceTree = "<group>"; };
+		032DC3D8245CD45900350C6B /* 5LetterBackSpace.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 5LetterBackSpace.mp3; sourceTree = "<group>"; };
+		032DC3D9245CD45900350C6B /* ReturnKeySound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ReturnKeySound.mp3; sourceTree = "<group>"; };
+		032DC3DA245CD45900350C6B /* IncorrectSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = IncorrectSound.mp3; sourceTree = "<group>"; };
+		032DC3DB245CD45900350C6B /* CorrectSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CorrectSound.mp3; sourceTree = "<group>"; };
+		032DC3E0245CDC6900350C6B /* UfoSymphonyShaker.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = UfoSymphonyShaker.mp3; sourceTree = "<group>"; };
+		032DC3E2245CE6B800350C6B /* UfoSymphonyMultiBeat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = UfoSymphonyMultiBeat.mp3; sourceTree = "<group>"; };
 		0365F6E32454BC42002B220E /* 5LetterWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 5LetterWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0365F6E62454BC42002B220E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0365F6E82454BC42002B220E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,7 +82,14 @@
 		0365F6E52454BC42002B220E /* 5LetterWords */ = {
 			isa = PBXGroup;
 			children = (
+				032DC3E2245CE6B800350C6B /* UfoSymphonyMultiBeat.mp3 */,
+				032DC3E0245CDC6900350C6B /* UfoSymphonyShaker.mp3 */,
+				032DC3D8245CD45900350C6B /* 5LetterBackSpace.mp3 */,
+				032DC3DB245CD45900350C6B /* CorrectSound.mp3 */,
+				032DC3DA245CD45900350C6B /* IncorrectSound.mp3 */,
+				032DC3D9245CD45900350C6B /* ReturnKeySound.mp3 */,
 				0365F6FA2454BCB0002B220E /* 5LetterEasyDic.json */,
+				032DC3D6245CCF4C00350C6B /* Clock_CountDown.mp3 */,
 				0365F6FD24555C04002B220E /* Models */,
 				0365F6FC24555BF8002B220E /* Views */,
 				0365F6E62454BC42002B220E /* AppDelegate.swift */,
@@ -102,6 +125,7 @@
 			children = (
 				0365F6FE24555D3F002B220E /* DictionaryStructure.swift */,
 				0365F70024555E4E002B220E /* JSONDataLoader.swift */,
+				032DC3D4245CC40D00350C6B /* GameSound.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -164,8 +188,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				032DC3DD245CD45900350C6B /* ReturnKeySound.mp3 in Resources */,
+				032DC3DC245CD45900350C6B /* 5LetterBackSpace.mp3 in Resources */,
+				032DC3E1245CDC6900350C6B /* UfoSymphonyShaker.mp3 in Resources */,
+				032DC3DE245CD45900350C6B /* IncorrectSound.mp3 in Resources */,
 				0365F6F32454BC46002B220E /* LaunchScreen.storyboard in Resources */,
+				032DC3D7245CCF4C00350C6B /* Clock_CountDown.mp3 in Resources */,
 				0365F6F02454BC46002B220E /* Preview Assets.xcassets in Resources */,
+				032DC3DF245CD45900350C6B /* CorrectSound.mp3 in Resources */,
+				032DC3E3245CE6B800350C6B /* UfoSymphonyMultiBeat.mp3 in Resources */,
 				0365F6FB2454BCB0002B220E /* 5LetterEasyDic.json in Resources */,
 				0365F6ED2454BC46002B220E /* Assets.xcassets in Resources */,
 			);
@@ -183,6 +214,7 @@
 				0365F7032455937B002B220E /* GameMain.swift in Sources */,
 				0365F7052455AD7A002B220E /* ViewTestBed.swift in Sources */,
 				0365F6EB2454BC42002B220E /* ContentView.swift in Sources */,
+				032DC3D5245CC40D00350C6B /* GameSound.swift in Sources */,
 				0365F6FF24555D3F002B220E /* DictionaryStructure.swift in Sources */,
 				0365F70124555E4E002B220E /* JSONDataLoader.swift in Sources */,
 			);
