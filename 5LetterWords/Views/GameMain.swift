@@ -85,24 +85,17 @@ struct Game: View {
     @State private var showRandomLetters = false
     @State private var showPickedLetters = false
     
-    //Played Letters One
+    //Played Letters
     @State private var playedLetterOne = ""
-   
-    
-    //Played Letters Two
     @State private var playedLetterTwo = ""
-   
-    
-    //Played Letters Three
     @State private var playedLetterThree = ""
-  
-    
-    //Played Letters Four
     @State private var playedLetterFour = ""
-   
-    
-    //Played Letters Five
     @State private var playedLetterFive = ""
+    
+    
+    //Variable to get all played letters
+    @State private var getAllPlayedLetters = ""
+    @State private var letterPlayedCompleted = false
     
     
     //Game Logo
@@ -117,8 +110,140 @@ struct Game: View {
     
     //Play Background Music
     @State private var playBackgroundMusic = false
-   
+    
+    
+    //Game Statistics
+    @State private var correctAnswerCount = 0
+    
+    
+    
+    //Reset variable for new word
+    func resetForNewWord() {
+        
+        
+       
 
+        //Random Word
+       
+        self.randomWord = ""
+        
+        //Tile Display word
+        self.displayRandomWord = ""
+        self.shuffledRandomWord = ""
+        
+        //Sorted Random Word
+        self.sortedRandomWord = ""
+        
+        //Random Word Letters
+        self.randomFirstLetter = ""
+        self.randomSecondLetter = ""
+        self.randomThirdLetter = ""
+        self.randomFourthLetter = ""
+        self.randomFifthLetter = ""
+        
+        //Reset Played Letter
+        self.playerSortedFirstLetter = ""
+        self.playerSortedSecondLetter = ""
+        self.playerSortedThirdLetter = ""
+        self.playerSortedFourthLetter = ""
+        self.playerSortedFifthLetter = ""
+        
+        
+        //Played Letters
+        self.playedLetterOne = ""
+        self.playedLetterTwo = ""
+        self.playedLetterThree = ""
+        self.playedLetterFour = ""
+        self.playedLetterFive = ""
+        
+        //Reset Collected Letters
+        self.getAllPlayedLetters = ""
+        self.letterPlayedCompleted = false
+        
+
+        
+        
+    }//End of reset
+    
+    
+    func getNewRandomWord() {
+        
+        self.randomWord = self.getRandomWord()
+         
+         //Holder Variable for Random word generator
+         self.displayRandomWord = self.randomWord
+        
+         
+         //For Players
+         self.sortedRandomWord = String(self.displayRandomWord.shuffled())
+        
+        
+        //User While loop
+        while self.sortedRandomWord == self.displayRandomWord {
+            
+        self.sortedRandomWord = String(self.displayRandomWord.shuffled())
+            
+        }
+        
+        self.shuffledRandomWord = String(self.randomWord.shuffled())
+        
+        while self.shuffledRandomWord == self.randomWord {
+        
+         self.shuffledRandomWord = String(self.randomWord.shuffled())
+        }
+         
+         //Run Index for Random word
+         self.extractRandomWordChar(inRandomWord: self.shuffledRandomWord)
+         
+         //Run index for Sorted word
+         self.extractPlayerSortedChar(inSortedWord: self.sortedRandomWord)
+        
+    }
+    
+    
+    
+   
+    //Function to process all placyed letters
+    func processPlayedLetters(inLetterOne:String,inLetterTwo:String,inLetterThree:String,inLetterFour:String,inLetterFive:String) -> String {
+        
+        var playerWord = ""
+        
+        
+        if self.letterPlayedCompleted {
+            
+            
+            playerWord = inLetterOne + inLetterTwo + inLetterThree + inLetterFour + inLetterFive
+          
+            
+            
+        }
+
+        
+        return playerWord
+    
+    }//End played word
+    
+    //Fucntion to process played letters
+    func processAnswer(inPlayedLetter:String, inRandomWord:String) {
+        
+        
+        //Check t make sure that all letters have been played
+        if self.letterPlayedCompleted {
+            
+            
+            
+            if inPlayedLetter == inRandomWord {
+                
+            
+                //Add to the count
+                self.correctAnswerCount += 1
+                
+            }
+            
+            
+        }
+        
+    }//End Process Answer
     
     
     
@@ -305,23 +430,14 @@ struct Game: View {
                         
                         
                         
-                        
+                        //Set state random word to true
                         self.newRandomWord = true
-                        self.randomWord = self.getRandomWord()
                         
-                        //Holder Variable for Random word generator
-                        self.displayRandomWord = self.randomWord
-                       
+                        //Call New Random word Function
+                        self.getNewRandomWord()
                         
-                        //For Players
-                        self.sortedRandomWord = String(self.displayRandomWord.sorted())
-                        self.shuffledRandomWord = String(self.randomWord.shuffled())
+                    
                         
-                        //Check for correct display
-                        if self.shuffledRandomWord == self.displayRandomWord {
-                            
-                            self.shuffledRandomWord = String(self.randomWord.shuffled())
-                        }
                         
                         //Run Index for Random word
                         self.extractRandomWordChar(inRandomWord: self.shuffledRandomWord)
@@ -330,7 +446,8 @@ struct Game: View {
                         self.extractPlayerSortedChar(inSortedWord: self.sortedRandomWord)
                     
                        
-                        
+                        //Reset Correnct Answer Counter
+                        self.correctAnswerCount = 0
                         
                         
                     }) {
@@ -454,19 +571,59 @@ struct Game: View {
                                     
                                 }//End of TapGesture
                             
-                            ZStack {
-                            Rectangle()
-                                .frame(width:40,height: 40)
-                                .foregroundColor(Color.blue)
-                                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
                             
-                                Text("⏎")
-                                    .foregroundColor(Color.yellow).bold()
-                                    .font(.system(size: 30))
-                                    .onTapGesture {
-                                        gameAudioPlayerNormal(sound: "ReturnKeySound", type: "mp3")
-                                }
+                                
+                                
+                                Button(action: {
+                                    
+                                    
+                                    gameAudioPlayerNormal(sound: "ReturnKeySound", type: "mp3")
+                                    
+                                    if self.playedLetterOne != "" && self.playedLetterTwo != "" && self.playedLetterThree != "" && self.playedLetterFour != "" && self.playedLetterFive != "" {
+                                        
+                                        self.letterPlayedCompleted = true
+                                        
+                                    }
+                                    
+                                    if self.letterPlayedCompleted {
+                                        
+                                        
+                                        self.getAllPlayedLetters = self.processPlayedLetters(inLetterOne: self.playedLetterOne, inLetterTwo: self.playedLetterTwo, inLetterThree: self.playedLetterThree, inLetterFour: self.playedLetterFour, inLetterFive: self.playedLetterFive)
+                                        
+                                        //Process correct answer
+                                        self.processAnswer(inPlayedLetter: self.getAllPlayedLetters, inRandomWord: self.displayRandomWord)
+                                        
+                                        
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                            
+                                            self.resetForNewWord()
+                                            self.getNewRandomWord()
+                                            
+                                            //Check for correct display
+                                            if self.shuffledRandomWord == self.displayRandomWord {
+                                                
+                                                self.shuffledRandomWord = String(self.randomWord.shuffled())
+                                            }
+                                            
+                                        }
+                                    }
+                                
+                                    
+                                }) {
+                                
+                            ZStack {
+                                    
+                                    Rectangle()
+                                        .frame(width:40,height: 40)
+                                        .foregroundColor(Color.blue)
+                                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                                    
+                                        Text("⏎")
+                                            .foregroundColor(Color.yellow).bold()
+                                            .font(.system(size: 30))
+                                            
                             }
+                            }//End of Button
                             
                         }//End of Sorted HStack
                             .transition(.slide)
@@ -607,7 +764,7 @@ struct Game: View {
                             .foregroundColor(Color.red)
                             .onAppear() {
                                 
-                                self.playBackgroundMusic.toggle()
+                                self.playBackgroundMusic = true
                                 
                                 if self.playBackgroundMusic {
                                     
@@ -646,7 +803,7 @@ struct Game: View {
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.gray)
                                             
-                                            Text("0")
+                                            Text("\(self.correctAnswerCount)")
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.blue)
                                             
