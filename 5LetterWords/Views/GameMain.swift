@@ -115,6 +115,9 @@ struct Game: View {
     //Game Statistics
     @State private var correctAnswerCount = 0
     
+    //Scoring Variable
+    @State private var correctScore = 0
+    
     
     
     //Reset variable for new word
@@ -234,9 +237,20 @@ struct Game: View {
             
             if inPlayedLetter == inRandomWord {
                 
+                //Play Correct Sount
+                gameAudioPlayerNormal(sound: "CorrectSound", type: "mp3")
+                
             
                 //Add to the count
                 self.correctAnswerCount += 1
+                
+                //Add Score
+                self.correctScore += 20
+                
+            } else {
+                
+                gameAudioPlayerNormal(sound: "WrongAnswerSound", type: "mp3")
+                
                 
             }
             
@@ -577,7 +591,7 @@ struct Game: View {
                                 Button(action: {
                                     
                                     
-                                    gameAudioPlayerNormal(sound: "ReturnKeySound", type: "mp3")
+                                    //gameAudioPlayerNormal(sound: "ReturnKeySound", type: "mp3")
                                     
                                     if self.playedLetterOne != "" && self.playedLetterTwo != "" && self.playedLetterThree != "" && self.playedLetterFour != "" && self.playedLetterFive != "" {
                                         
@@ -814,7 +828,7 @@ struct Game: View {
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.gray)
                                                 
-                                             Text("100")
+                                            Text("\(self.correctScore)")
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.blue)
                                         }
