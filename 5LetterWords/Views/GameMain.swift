@@ -119,6 +119,12 @@ struct Game: View {
     @State private var correctScore = 0
     
     
+    //Set Timer
+    @State private var questionTimeCountdown = 10
+    @State private var gameTimeLimit = 180
+    @State private var questionTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    
     
     //Reset variable for new word
     func resetForNewWord() {
@@ -163,6 +169,10 @@ struct Game: View {
         self.getAllPlayedLetters = ""
         self.letterPlayedCompleted = false
         
+        
+        //Reset Counter
+        self.questionTimeCountdown = 10
+        
 
         
         
@@ -202,6 +212,19 @@ struct Game: View {
          self.extractPlayerSortedChar(inSortedWord: self.sortedRandomWord)
         
     }
+    
+    //Reset word after 5 second Count down
+    func wordTimeOver() {
+        
+        //Reset variables
+        resetForNewWord()
+        
+        //Create new random word
+        getNewRandomWord()
+        
+        
+        
+    }//Ens Word Time Over
     
     
     
@@ -608,7 +631,7 @@ struct Game: View {
                                         self.processAnswer(inPlayedLetter: self.getAllPlayedLetters, inRandomWord: self.displayRandomWord)
                                         
                                         
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                             
                                             self.resetForNewWord()
                                             self.getNewRandomWord()
@@ -807,9 +830,30 @@ struct Game: View {
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.gray)
                                                 
-                                            Text("00:00")
+                                            Text("\(self.questionTimeCountdown)")
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.blue)
+                                                .onReceive(questionTimer) { qTime in
+                                                    
+                                                    if self.questionTimeCountdown > 0 {
+                                                        
+                                                        self.questionTimeCountdown -= 1
+                                                        
+                                                        //Reset Word
+                                                        if self.questionTimeCountdown == 0 {
+                                                            
+                                                            self.wordTimeOver()
+                                                            gameSpeech(word: "10 Seconds Up")
+                                                        }
+                                                        
+                                                    }
+                                                    
+        
+                                                    
+                                            }
+                                            
+                                            
+                                          
                                         }
                                         
                                         HStack(spacing:173) {
