@@ -119,10 +119,16 @@ struct Game: View {
     @State private var correctScore = 0
     
     
-    //Set Timer
-    @State private var questionTimeCountdown = 10
+    //Set Question Timer
+    @State private var normalTimeCounterState = true
+    
+    @State private var questionTimeCountdown = 10 // 10 seconds
     @State private var gameTimeLimit = 180
     @State private var questionTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    //Set Game Timer
+    @State private var gameTimeCounter = 300 //5 minues
+    @State private var gameTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     
     
@@ -400,6 +406,17 @@ struct Game: View {
                         self.playIntroMusic.toggle()
                         
                     }
+                    
+                    
+                    
+            }//End on Appear
+            
+            
+                .onDisappear() {
+                    
+                    //Stop Timers
+                    self.questionTimer.upstream.connect().cancel() //Question Timer
+                    self.gameTimer.upstream.connect().cancel() //Game Timer
                     
             }
         
@@ -837,6 +854,8 @@ struct Game: View {
                                                     
                                                     if self.questionTimeCountdown > 0 {
                                                         
+                                                        //Text("")
+                                                        
                                                         self.questionTimeCountdown -= 1
                                                         
                                                         //Reset Word
@@ -882,11 +901,50 @@ struct Game: View {
                                         Text("Game Timer:")
                                             .font(.custom("Gill Sans", size: 20))
                                             .foregroundColor(Color.gray)
-                                        
-                                        Text("12:00")
+                                    
+                                            Text("\(self.gameTimeCounter)")
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.blue)
-                                        }
+                                                
+                                        
+                                            
+                                                
+                                                .onReceive(gameTimer) {gTime in
+                                                    
+                                                    
+                                                    if self.gameTimeCounter > 0 {
+                                                        
+                                                        self.gameTimeCounter -= 1
+                                                        
+                                                        
+                                                        
+                                                        
+                                                    } else if self.gameTimeCounter == 0 {
+                                                        
+                                                        
+                                                        //Stop Timers
+                                                        self.questionTimer.upstream.connect().cancel() //Question Timer
+                                                        self.gameTimer.upstream.connect().cancel() //Game Timer
+                                                        
+                                                        //Announce to player total score from game
+                                                        gameSpeech(word: "Game Over. ")
+                                                        
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                                            gameSpeech(word: "you got \(self.correctAnswerCount) right and your total score is \(self.correctScore)")
+                                                        
+                                                        }
+                                                    
+                                                    }
+                                                    
+                                                    
+                                            }//End on Receive
+                                                
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        }//End HStack for Game Timer
                                     }
                         
                             }//Stats ZStack
@@ -1005,3 +1063,4 @@ struct PlayedLetterSquare: View {
     }
     
 }//End of PlayedLetter model
+
