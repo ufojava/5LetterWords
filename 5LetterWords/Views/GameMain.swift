@@ -101,6 +101,17 @@ struct Game: View {
     //Game Logo
     @State private var gameLogoImage = false
     
+    //Game Intro Alphabets
+    @State private var gameAlphabetIntro = false
+    @State private var showIntroLetterOne = false
+    @State private var showIntroLetterTwo = false
+    @State private var showIntroLetterThree = false
+    @State private var showIntroLetterFour = false
+    @State private var showIntroLetterFive = false
+    @State private var showIntroLetterSix = false
+    @State private var showIntroLetterSeven = false
+    @State private var showIntroLetterEight = false
+    
     //Show Game Statistics
     @State private var showGameStats = false
     
@@ -129,6 +140,9 @@ struct Game: View {
     //Set Game Timer
     @State private var gameTimeCounter = 300 //5 minues
     @State private var gameTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    //New Game Button
+    @State private var showNewGameButton = false
     
     
     
@@ -428,11 +442,74 @@ struct Game: View {
                             .onAppear() {
                                 
                                 self.gameLogoImage = true
+                                self.gameAlphabetIntro = true
+                                
+                                
+                                if self.gameAlphabetIntro {
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    
+                                    self.showIntroLetterOne = true
+                                    
+                                    }
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                        
+                                        self.showIntroLetterTwo = true
+                                    }
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                        
+                                        self.showIntroLetterThree = true
+                                    }
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                                        
+                                        self.showIntroLetterFour = true
+                                    }
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                                        
+                                        self.showIntroLetterFive = true
+                                    }
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                                        
+                                        self.showIntroLetterSix = true
+                                    }
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+                                        
+                                        self.showIntroLetterSeven = true
+                                    }
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                                        
+                                        self.showIntroLetterEight = true
+                                    }
+                                    
+                                    
+                                }//End of gameAlphabet Intro
                     }
                             
                         Spacer().frame(height:40)
                         
                     Button(action: {
+                        
+                        //Make Alphabet Intro disapear
+                
+                                self.gameAlphabetIntro.toggle()
+                                self.gameAlphabetIntro.toggle()
+                                self.showIntroLetterOne.toggle()
+                                self.showIntroLetterTwo.toggle()
+                                self.showIntroLetterThree.toggle()
+                                self.showIntroLetterFour.toggle()
+                                self.showIntroLetterFive.toggle()
+                                self.showIntroLetterSix.toggle()
+                                self.showIntroLetterSeven.toggle()
+                                self.showIntroLetterEight.toggle()
+                          
+                 
+                        
                         
                         //Make Logo disapear
                         
@@ -483,7 +560,6 @@ struct Game: View {
                         
                         
                         
-                        
                         //Set state random word to true
                         self.newRandomWord = true
                         
@@ -502,6 +578,12 @@ struct Game: View {
                        
                         //Reset Correnct Answer Counter
                         self.correctAnswerCount = 0
+                        
+                        //Check if New game button is true
+                        if self.showNewGameButton {
+                            
+                            self.showNewGameButton = false
+                        }
                         
                         
                     }) {
@@ -527,7 +609,7 @@ struct Game: View {
                         
                         //Shuffled Random Letter
                         
-                        Spacer().frame(height:40)
+                        Spacer().frame(height:30)
                         
                         if showRandomLetters {
                         
@@ -556,7 +638,7 @@ struct Game: View {
                        
                         if self.showPickLetters {
                             
-                        Spacer().frame(height:40)
+                        Spacer().frame(height:30)
                         Text("Pick Letter")
                             .font(.custom("Chalkboard SE", size: 25))
                             .foregroundColor(Color.gray).bold()
@@ -691,7 +773,7 @@ struct Game: View {
                         
                         if self.showPickedLetters {
                         
-                        Spacer().frame(height:40)
+                        Spacer().frame(height:30)
                         Text("Picked Letters")
                             .font(.custom("Chalkboard SE", size: 25))
                             .foregroundColor(Color.gray).bold()
@@ -762,7 +844,7 @@ struct Game: View {
                                 
                                 if self.gameLogoImage {
                                     
-                                    Spacer().frame(height:40)
+                                    Spacer().frame(height:30)
                                     
                                     
                                     HStack {
@@ -783,7 +865,7 @@ struct Game: View {
                                                 .resizable()
                                                 .frame(width:240,height: 240)
                                             
-                                            Text("Alphabets")
+                                            Text("UfoSoft")
                                                 .font(.custom("Gill Sans", size: 35))
                                                 .foregroundColor(Color.gray)
                                         
@@ -796,18 +878,122 @@ struct Game: View {
                                     
                                     
                                     
+                                }//End of Game Logo
+                        
+                        Spacer().frame(height:30)
+                        
+                        VStack {
+                            
+                            if gameAlphabetIntro {
+                                Spacer().frame(height:30)
+                            
+                                HStack(spacing: 37) {
+                                   
+                                    
+                                    if self.showIntroLetterOne {
+                                        
+                                        AlphabetIntroTop(inletter: "A")
+                                            .transition(.slide)
+                                            .animation(.default)
+                                    }
+                                    
+                                    if self.showIntroLetterThree {
+                                        AlphabetIntroTop(inletter: "P")
+                                            .transition(.slide)
+                                            .animation(.default)
+                                    }
+                                    
+                                    if self.showIntroLetterFive {
+                                        
+                                        AlphabetIntroTop(inletter: "A")
+                                            .transition(.slide)
+                                            .animation(.default)
+                                    }
+                                    
+                                    if self.showIntroLetterSeven {
+                                        
+                                        AlphabetIntroTop(inletter: "E")
+                                            .transition(.slide)
+                                            .animation(.default)
+                                    }
+                                                                      
+                                }//Alphabet Intro Top HStack
+                            
+                            HStack(spacing: 35) {
+                                Spacer().frame(width:40)
+                                
+                                if self.showIntroLetterTwo {
+                                    
+                                    AlphabetIntroBottom(inletter: "L")
+                                        .transition(.slide)
+                                        .animation(.default)
                                 }
-                
+                                
+                                if self.showIntroLetterFour {
+                                    
+                                    AlphabetIntroBottom(inletter: "H")
+                                        .transition(.slide)
+                                        .animation(.default)
+                                }
+                                
+                                if self.showIntroLetterSix {
+                                    
+                                    AlphabetIntroBottom(inletter: "B")
+                                        .transition(.slide)
+                                        .animation(.default)
+                                }
+                                
+                                if self.showIntroLetterEight {
+                                    
+                                    AlphabetIntroBottom(inletter: "T")
+                                        .transition(.slide)
+                                        .animation(.default)
+                                }
+                                
+                            }//Alphabet Intro Bottom HStack
+                                
+                            }
+                        }
+                        
+                        
+                        
+                        
+                        
+                        Spacer().frame(height:20)
+                        
+                        ZStack {
+                                Rectangle()
+                                    .frame(width:120,height: 50)
+                                    .foregroundColor(Color.clear)
+                           
+                        
+                        if self.showNewGameButton {
+                        //New Game Question
+                                Button(action: {}) {
+                                   
+                                   Text("New Game ?")
+                                    .frame(width:110,height: 40)
+                                    .background(Color.purple)
+                                    .foregroundColor(Color.white)
+                                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
+                                    .shadow(radius: 3)
+                                   
+                                   
+                               }
+                    }//End of Show Button condition
+                        
+                        }
+                        
                     
                     }//End of Group
                         
-                        Spacer().frame(height:40)
+                        Spacer().frame(height:20)
                         
+                       
                     
                     
                     
-                    
-                    Spacer().frame(height:30)
+                   // Spacer().frame(height:20)
                     
                     if showGameStats {
                         
@@ -849,7 +1035,7 @@ struct Game: View {
                                                 
                                             Text("\(self.questionTimeCountdown)")
                                                 .font(.custom("Gill Sans", size: 20))
-                                                .foregroundColor(Color.blue)
+                                                .foregroundColor(Color.red)
                                                 .onReceive(questionTimer) { qTime in
                                                     
                                                     if self.questionTimeCountdown > 0 {
@@ -893,7 +1079,7 @@ struct Game: View {
                                                 
                                             Text("\(self.correctScore)")
                                                 .font(.custom("Gill Sans", size: 20))
-                                                .foregroundColor(Color.blue)
+                                                .foregroundColor(Color.init(red: 0.3, green: 0.5, blue: 0.7))
                                         }
                                         
                                         HStack(spacing: 205) {
@@ -904,7 +1090,7 @@ struct Game: View {
                                     
                                             Text("\(self.gameTimeCounter)")
                                                 .font(.custom("Gill Sans", size: 20))
-                                                .foregroundColor(Color.blue)
+                                                .foregroundColor(Color.purple)
                                                 
                                         
                                             
@@ -926,11 +1112,19 @@ struct Game: View {
                                                         self.questionTimer.upstream.connect().cancel() //Question Timer
                                                         self.gameTimer.upstream.connect().cancel() //Game Timer
                                                         
+                                                        //Stop background music
+                                                        stopBackgroundSound()
+                                                        
                                                         //Announce to player total score from game
                                                         gameSpeech(word: "Game Over. ")
                                                         
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                                             gameSpeech(word: "you got \(self.correctAnswerCount) right and your total score is \(self.correctScore)")
+                                                            
+                                                            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                                                                
+                                                                self.showNewGameButton = true
+                                                            }
                                                         
                                                         }
                                                     
@@ -1063,4 +1257,68 @@ struct PlayedLetterSquare: View {
     }
     
 }//End of PlayedLetter model
+
+
+//Alphabet Intro Top
+struct AlphabetIntroTop: View {
+    
+    var inletter = ""
+    
+    var body: some View {
+        
+        ZStack {
+            
+            ZStack {
+            
+            Rectangle()
+                .frame(width:40,height: 40)
+                .foregroundColor(Color.yellow)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                .shadow(radius: 6)
+            
+                Text(inletter).bold()
+                    .foregroundColor(Color.gray)
+                    .font(.system(size: 30))
+            }
+            
+            
+        }
+        
+        
+    }
+    
+}//End of Alphabet Introduction Top
+
+
+
+
+//Alphabet Intro Bottom
+struct AlphabetIntroBottom: View {
+    
+    var inletter = ""
+    
+    var body: some View {
+        
+        ZStack {
+            
+            ZStack {
+            
+            Rectangle()
+                .frame(width:40,height: 40)
+                .foregroundColor(Color.red)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                .shadow(radius: 6)
+            
+                Text(inletter).bold()
+                    .foregroundColor(Color.yellow)
+                    .font(.system(size: 30))
+            }
+            
+            
+        }
+        
+        
+    }
+    
+}//End of Alphabet Introduction Bottom
 
