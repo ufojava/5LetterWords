@@ -496,19 +496,20 @@ struct Game: View {
                     Button(action: {
                         
                         //Make Alphabet Intro disapear
-                
-                                self.gameAlphabetIntro.toggle()
-                                self.gameAlphabetIntro.toggle()
-                                self.showIntroLetterOne.toggle()
-                                self.showIntroLetterTwo.toggle()
-                                self.showIntroLetterThree.toggle()
-                                self.showIntroLetterFour.toggle()
-                                self.showIntroLetterFive.toggle()
-                                self.showIntroLetterSix.toggle()
-                                self.showIntroLetterSeven.toggle()
-                                self.showIntroLetterEight.toggle()
+                        if self.gameAlphabetIntro {
+                            
+                                self.gameAlphabetIntro = false
+                                self.gameAlphabetIntro = false
+                                self.showIntroLetterOne = false
+                                self.showIntroLetterTwo = false
+                                self.showIntroLetterThree = false
+                                self.showIntroLetterFour = false
+                                self.showIntroLetterFive = false
+                                self.showIntroLetterSix = false
+                                self.showIntroLetterSeven = false
+                                self.showIntroLetterEight = false
                           
-                 
+                        }
                         
                         
                         //Make Logo disapear
@@ -1015,7 +1016,56 @@ struct Game: View {
                             
                         .onDisappear() {
                             
-                            stopBackgroundSound()
+                            
+                            self.gameAlphabetIntro = true
+                            
+                            //Make Alphabet Intro disapear
+                            if self.gameAlphabetIntro  {
+                                
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    
+                                }
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    self.showIntroLetterOne = true
+                                }
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                    self.showIntroLetterTwo = true
+                                }
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                                    self.showIntroLetterThree = true
+                                }
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                                    self.showIntroLetterFour = true
+                                }
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                                    self.showIntroLetterFive = true
+                                }
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+                                    self.showIntroLetterSix = true
+                                }
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                                    self.showIntroLetterSeven = true
+                                }
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 9) {
+                                    self.showIntroLetterEight = true
+                                }
+                                
+                                //Stop Music after alphabets are in place
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                                  
+                                    stopBackgroundSound()
+                                    
+                                }
+                            }
                             
                             }
                             
