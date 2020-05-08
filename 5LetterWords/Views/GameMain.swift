@@ -138,8 +138,13 @@ struct Game: View {
     @State private var questionTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     //Set Game Timer
-    @State private var gameTimeCounter = 300 //5 minues
+   // @State private var gameTimeCounter = 300 //5 minues
+    
+    //Testing
+    @State private var gameTimeCounter = 12 //5 minues
+    
     @State private var gameTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State private var gameOverStatus = false
     
     //New Game Button
     @State private var showNewGameButton = false
@@ -192,6 +197,7 @@ struct Game: View {
         
         //Reset Counter
         self.questionTimeCountdown = 10
+        //self.gameTimeCounter = 12
         
 
         
@@ -244,7 +250,7 @@ struct Game: View {
         
         
         
-    }//Ens Word Time Over
+    }//End Word Time Over
     
     
     
@@ -425,14 +431,7 @@ struct Game: View {
                     
             }//End on Appear
             
-            
-                .onDisappear() {
-                    
-                    //Stop Timers
-                    self.questionTimer.upstream.connect().cancel() //Question Timer
-                    self.gameTimer.upstream.connect().cancel() //Game Timer
-                    
-            }
+    
         
                 VStack {
                 
@@ -440,6 +439,7 @@ struct Game: View {
                             .font(.largeTitle).foregroundColor(Color.red).bold()
                     
                             .onAppear() {
+                                
                                 
                                 self.gameLogoImage = true
                                 self.gameAlphabetIntro = true
@@ -494,6 +494,8 @@ struct Game: View {
                         Spacer().frame(height:40)
                         
                     Button(action: {
+                        
+                       
                         
                         //Make Alphabet Intro disapear
                         if self.gameAlphabetIntro {
@@ -580,17 +582,15 @@ struct Game: View {
                         //Reset Correnct Answer Counter
                         self.correctAnswerCount = 0
                         
-                        //Check if New game button is true
                         if self.showNewGameButton {
                             
-                            self.showNewGameButton = false
+                        self.showNewGameButton = false
+                            self.gameTimeCounter = 12
                         }
-                        
-                        
                     }) {
                         
                         
-                        Text("Begin / Close")
+                        Text("Begin / Exit")
                             .frame(width:150,height: 40)
                             .background(Color.blue)
                             .foregroundColor(Color.yellow)
@@ -970,7 +970,22 @@ struct Game: View {
                         
                         if self.showNewGameButton {
                         //New Game Question
-                                Button(action: {}) {
+                                Button(action: {
+                                    
+                                    //Reset variables
+                                    self.wordTimeOver()
+                                    
+                                    //Reset game counter
+                                    self.gameTimeCounter = 12
+                                    
+                                    //Play background music
+                                    gameAudioPlayerBackground(sound: "UfoSymphonyMultiBeat", type: "mp3")
+                                    
+                                    //Reset game new game button
+                                    self.showNewGameButton = false
+                                   
+                                    
+                                }) {
                                    
                                    Text("New Game ?")
                                     .frame(width:110,height: 40)
@@ -978,6 +993,27 @@ struct Game: View {
                                     .foregroundColor(Color.white)
                                     .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
                                     .shadow(radius: 3)
+                                    
+                                    .onAppear() {
+                                        if self.gameOverStatus {
+                                            
+                                            gameSpeech(word: "Game Over")
+                                            
+                                            //Game Player Score
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                                
+                                                gameSpeech(word: "You got correct \(self.correctAnswerCount) and scored \(self.correctScore) points")
+                                                
+                                            }
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                                                
+                                                gameSpeech(word: "To play again click on new game. To exit click on exit button")
+                                            }
+                                            
+                                        }
+                                        
+                                    }
                                    
                                    
                                }
@@ -1015,6 +1051,8 @@ struct Game: View {
                             }
                             
                         .onDisappear() {
+                            
+                            
                             
                             
                             self.gameAlphabetIntro = true
@@ -1088,7 +1126,7 @@ struct Game: View {
                                                 .foregroundColor(Color.red)
                                                 .onReceive(questionTimer) { qTime in
                                                     
-                                                    if self.questionTimeCountdown > 0 {
+                                                    if self.questionTimeCountdown > 0 && self.gameTimeCounter > 0 {
                                                         
                                                         //Text("")
                                                         
@@ -1142,8 +1180,6 @@ struct Game: View {
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.purple)
                                                 
-                                        
-                                            
                                                 
                                                 .onReceive(gameTimer) {gTime in
                                                     
@@ -1155,40 +1191,35 @@ struct Game: View {
                                                         
                                                         
                                                         
-                                                    } else if self.gameTimeCounter == 0 {
-                                                        
-                                                        
-                                                        //Stop Timers
-                                                        self.questionTimer.upstream.connect().cancel() //Question Timer
-                                                        self.gameTimer.upstream.connect().cancel() //Game Timer
-                                                        
-                                                        //Stop background music
-                                                        stopBackgroundSound()
-                                                        
-                                                        //Announce to player total score from game
-                                                        gameSpeech(word: "Game Over. ")
-                                                        
-                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                                            gameSpeech(word: "you got \(self.correctAnswerCount) right and your total score is \(self.correctScore)")
-                                                            
-                                                            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                                                                
-                                                                self.showNewGameButton = true
-                                                            }
-                                                        
-                                                        }
+                                                    } else  if self.gameTimeCounter == 0 {
                                                     
-                                                    }
+                                                
+                                                        
+                                                        //Change the game status to true
+                                                        self.gameOverStatus = true
+                                                        self.showNewGameButton = true
+                                                         stopBackgroundSound()
+                                                        
+                                                        //Set the question timer to 0
+                                                        self.questionTimeCountdown = 0
+                                                        
+                                                        
+                                                       
+                                                    
+                                                    }//End the Game Counter
                                                     
                                                     
                                             }//End on Receive
+                                            
+                                             
+                                            
+                                            }//End HStack for Game Timer
+                                        
+                                        
+                                        
                                                 
                                             
-                                            
-                                            
-                                            
-                                            
-                                        }//End HStack for Game Timer
+                                        
                                     }
                         
                             }//Stats ZStack
