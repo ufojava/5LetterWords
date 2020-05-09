@@ -135,7 +135,10 @@ struct Game: View {
     
     @State private var questionTimeCountdown = 10 // 10 seconds
     @State private var gameTimeLimit = 180
-    @State private var questionTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State private var questionTimer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
+ 
+    
+    @State private var gameStart = false
     
     //Set Game Timer
     @State private var gameTimeCounter = 300 //5 minues
@@ -143,6 +146,7 @@ struct Game: View {
  
     
     @State private var gameTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+  
     @State private var gameOverStatus = false
     
     //New Game Button
@@ -401,6 +405,9 @@ struct Game: View {
         
         
     }
+    
+    
+  
 
 
     
@@ -494,7 +501,8 @@ struct Game: View {
                         
                     Button(action: {
                         
-                       
+                        
+                        self.gameStart = true
                         
                         //Make Alphabet Intro disapear
                         if self.gameAlphabetIntro {
@@ -523,6 +531,8 @@ struct Game: View {
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                             self.gameLogoImage.toggle()
+                                
+                                
                         }
                         }
                        
@@ -567,6 +577,8 @@ struct Game: View {
                         
                         //Call New Random word Function
                         self.getNewRandomWord()
+                       
+                        
                         
                     
                         
@@ -595,10 +607,18 @@ struct Game: View {
                             .foregroundColor(Color.yellow)
                             .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
                         .shadow(radius: 6)
+                        
+                            
+                        
+                            
                             
                     }
                     
+                    
+                    
                     Spacer().frame(height:20)
+                    
+                    
                     
                     if self.newRandomWord {
                         
@@ -880,6 +900,11 @@ struct Game: View {
                                     
                                 }//End of Game Logo
                         
+                        
+                            
+                            
+                   
+                        
                         Spacer().frame(height:30)
                         
                         VStack {
@@ -1121,8 +1146,27 @@ struct Game: View {
                                                 .foregroundColor(Color.gray)
                                                 
                                             Text("\(self.questionTimeCountdown)")
+                                            
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.red)
+                                                
+                                                .onAppear() {
+                                                   
+                                                    
+                                            }
+                                                
+                                                
+                                                //On Exit
+                                                .onDisappear() {
+                                                    gameSpeech(word: "Bye")
+                                                    //self.questionTimer.upstream.connect().cancel()
+                                                    
+                                                    print("\(self.questionTimeCountdown)")
+                                                    
+                                                    
+                                            }
+                                                
+                                                
                                                 .onReceive(questionTimer) { qTime in
                                                     
                                                     if self.questionTimeCountdown > 0 && self.gameTimeCounter > 0 {
@@ -1197,6 +1241,7 @@ struct Game: View {
                                                         if self.gameTimeCounter == 0 {
                                                             
                                                             stopMainSound()
+                                                            //self.gameTimer.upstream.connect().cancel()
                                                         }
                                                         
                                                         

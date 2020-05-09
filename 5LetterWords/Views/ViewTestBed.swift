@@ -15,9 +15,12 @@ struct GameTestBed: View {
     
     var body: some View {
         
-        TextManipulation()
+        NavigationView {//
         
+        //TextManipulation()
+        TimerText()
         
+        }//
     }
     
 }
@@ -104,3 +107,67 @@ struct TextManipulation: View {
     }
     
 }
+
+
+//Struct to test timer
+
+struct TimerText: View {
+    
+    @State private var timeCounter = 30
+    @State private var countTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
+    
+    
+    
+    var body: some View {
+        
+        
+        VStack {
+        
+        Text("Count Timer")
+            .onReceive(countTimer) { myTime in
+                
+                
+                self.timeCounter -= 1
+                
+                
+                
+                
+        }//End of OnReceive
+           
+            Text("\(self.timeCounter)")
+            
+        
+       /*
+        Text("\(self.timeCounter)")
+            
+            Button(action: {
+                
+                if self.timeCounter < 0 {
+                    
+                    self.timeCounter = 20
+                    
+                }
+                
+                
+                
+            }) {
+                
+                
+                
+                Text("Check Counter")
+                
+                
+            }
+        */
+        
+        }
+        
+        
+    }
+    
+    
+}
+
+
+
