@@ -138,10 +138,9 @@ struct Game: View {
     @State private var questionTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     //Set Game Timer
-   // @State private var gameTimeCounter = 300 //5 minues
+    @State private var gameTimeCounter = 300 //5 minues
     
-    //Testing
-    @State private var gameTimeCounter = 12 //5 minues
+ 
     
     @State private var gameTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var gameOverStatus = false
@@ -197,7 +196,7 @@ struct Game: View {
         
         //Reset Counter
         self.questionTimeCountdown = 10
-        //self.gameTimeCounter = 12
+       
         
 
         
@@ -585,7 +584,7 @@ struct Game: View {
                         if self.showNewGameButton {
                             
                         self.showNewGameButton = false
-                            self.gameTimeCounter = 12
+                            self.gameTimeCounter = 300
                         }
                     }) {
                         
@@ -976,7 +975,7 @@ struct Game: View {
                                     self.wordTimeOver()
                                     
                                     //Reset game counter
-                                    self.gameTimeCounter = 12
+                                    self.gameTimeCounter = 300
                                     
                                     //Play background music
                                     gameAudioPlayerBackground(sound: "UfoSymphonyMultiBeat", type: "mp3")
