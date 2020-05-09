@@ -120,3 +120,12 @@ func stopBackgroundSound() {
 }//End of Stop background music
 
 
+
+//Function to Stop Background Audio
+func stopMainSound() {
+    
+    gameNormalAudio?.stop()
+    
+}//End of Stop background music
+
+

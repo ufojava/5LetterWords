@@ -1186,6 +1186,18 @@ struct Game: View {
                                                     if self.gameTimeCounter > 0 {
                                                         
                                                         self.gameTimeCounter -= 1
+                                                            
+                                                        if self.gameTimeCounter > 0 && self.gameTimeCounter <= 10 {
+                                                            
+                                                            stopBackgroundSound()
+                                                            gameAudioPlayerNormal(sound: "TenSecondCountDown", type: "mp3")
+                                                        }
+                                                        
+                                                        //Put in to stop the Countdown loop - seems to be a bug
+                                                        if self.gameTimeCounter == 0 {
+                                                            
+                                                            stopMainSound()
+                                                        }
                                                         
                                                         
                                                         
@@ -1197,7 +1209,7 @@ struct Game: View {
                                                         //Change the game status to true
                                                         self.gameOverStatus = true
                                                         self.showNewGameButton = true
-                                                         stopBackgroundSound()
+                                                         //stopBackgroundSound()
                                                         
                                                         //Set the question timer to 0
                                                         self.questionTimeCountdown = 0
