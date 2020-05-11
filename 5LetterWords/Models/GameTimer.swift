@@ -12,90 +12,89 @@ import Combine
 
 
 
-
-//Game Timer
-class GameTimer: ObservableObject {
+//Game & Quetion Timer
+class GameQuestionTimer: ObservableObject {
     
-    @Published var globalGameTimeLimit = 0
+    //Published Variables
+    @Published var mainGameTimerLimit = 0
+    @Published var mainQuestionTimerLimit = 0
     
-    private var subscriber: AnyCancellable?
+    //Subscribers
+    private var gameSubscriber: AnyCancellable?
+    private var questionSubscriber: AnyCancellable?
     
-    //Function initiate Timer
-    func instantiaiteGameTime() {
+    
+    //Function to initialise Game Timer
+    func instantiateGameTimer() {
         
-        self.globalGameTimeLimit = 300
-        self.subscriber = Timer
-               .publish(every: 1, on: .main, in: .common)
-               .autoconnect()
-               .sink(receiveValue: { _ in
-                
-                if self.globalGameTimeLimit > 0 {
-                    
-                   self.globalGameTimeLimit -= 1
-                    
-                } else if self.globalGameTimeLimit <= 0 {
-                    
-                    gameSpeech(word: "Game Over")
-                    
-                }
-               })
-    
-                    
-    }
-    
-    //Function to to cancel Timer
-    func deinstantiateGameTime() {
-        
-        self.subscriber = nil
-    }
-    
-    
-    
-    
-}//End of Game Timer Class
-
-
-
-//Class for Question Timer
-class QuestionTimer: ObservableObject {
-    
-    @Published var globaQuestionTimeLimt = 0
-    
-    private var subscriber: AnyCancellable?
-    
-    //Function intiate Timer
-    func instantiateQuestionTimer() {
-        
-        self.globaQuestionTimeLimt = 10
-        self.subscriber = Timer
+        self.mainGameTimerLimit = 300
+        self.gameSubscriber = Timer
             .publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink(receiveValue: { _ in
                 
-                
-                if self.globaQuestionTimeLimt > 0 {
-                
-                self.globaQuestionTimeLimt -= 1
+                if self.mainGameTimerLimit > 0 {
                     
-                } else if self.globaQuestionTimeLimt <= 0 {
+                    self.mainGameTimerLimit -= 1
                     
-                    gameSpeech(word: "10 seconds up")
-                    self.globaQuestionTimeLimt = 10
+                } else if self.mainGameTimerLimit <= 0 {
                     
+                    gameSpeech(word: "Game Over")
                 }
+                
                 
             })
         
-    }//End of Initialise function
+    }//End Initialise Game
+    
+    //Function De-initilise Game Timer
+    func deinitialiseGameTimer() {
+        
+        self.gameSubscriber = nil
+    }
     
     
-    //Function to cancel timer
+    //Function to initialise Question Timer
+    func instantiateQuestionTimer() {
+        
+        self.mainQuestionTimerLimit = 10
+        self.questionSubscriber = Timer
+            .publish(every: 1, on: .main, in: .common)
+            .autoconnect()
+            .sink(receiveValue: { _ in
+                
+                if self.mainQuestionTimerLimit > 0 {
+                    
+                    self.mainQuestionTimerLimit -= 1
+                    
+                    
+                } else if self.mainQuestionTimerLimit <= 0 {
+                    
+                    gameSpeech(word: "10 Seconds Up")
+                    self.mainQuestionTimerLimit = 10
+                    
+                    
+                }
+                
+                
+                
+                
+            })
+        
+    }//End Initialise Question
+    
+    //Function to De-initialise Question Timer
     func deinstantiateQuestionTimer() {
         
-        self.subscriber = nil
+        self.questionSubscriber = nil
+        
         
     }
     
     
-    
-}//End of Question Timer Class
+}//End of Game and Question Class
+
+
+
+
+

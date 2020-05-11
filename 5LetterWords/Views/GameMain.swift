@@ -138,29 +138,19 @@ struct Game: View {
     @State private var gameTimeCounter = 300 //5 minues
     
     @State private var gameOverStatus = false
+    @State private var gameStatus = false
     
     //New Game Button
     @State private var showNewGameButton = false
     
     
-    //Game Timer
-    @ObservedObject private var gameTimer = GameTimer()
-    @State private var gameTimeLimit = 0
 
     
-    //Question Timer
-    @ObservedObject private var questionTimer = QuestionTimer()
-    @State private var questionTimeLimit = 0
+    //Environement Game and Question Timer
+    @EnvironmentObject var gameQuestionTimer: GameQuestionTimer
     
     
-    //Function to get the variable values
-    func getglobalVariableValues() {
-        
-        self.gameTimeLimit = gameTimer.globalGameTimeLimit
-        self.questionTimeLimit = questionTimer.globaQuestionTimeLimt
-
-        
-    }
+   
     
     
     
@@ -515,6 +505,8 @@ struct Game: View {
                         
                     Button(action: {
                         
+                        self.gameStatus = true
+                        
                         
                         //Make Alphabet Intro disapear
                         if self.gameAlphabetIntro {
@@ -624,16 +616,16 @@ struct Game: View {
                         .shadow(radius: 6)
                         
                             
-                        
-                            
-                        
-                            
                             
                     }
                     
                     
                     
+                    
+                    
                     Spacer().frame(height:20)
+                    
+                    
                     
                     
                     
@@ -1162,15 +1154,16 @@ struct Game: View {
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.gray)
                                                 
-                                            Text("\(self.questionTimer.globaQuestionTimeLimt)")
+                                            Text("\(self.gameQuestionTimer.mainQuestionTimerLimit)")
                                             
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.red)
                                                 
                                                 .onAppear() {
                                                     
+                                                    
                                                    
-                                                    self.questionTimer.instantiateQuestionTimer()
+                                                    self.gameQuestionTimer.instantiateQuestionTimer()
                                                     
                                                         
                                                     
@@ -1180,7 +1173,7 @@ struct Game: View {
                                                 .onDisappear() {
                                                     
                                                     
-                                                    self.questionTimer.deinstantiateQuestionTimer()
+                                                    self.gameQuestionTimer.deinstantiateQuestionTimer()
                                                 
                                                                                                         
                                             }
@@ -1220,19 +1213,19 @@ struct Game: View {
                                             
                                             
                                 
-                                            Text("\(self.gameTimer.globalGameTimeLimit)")
+                                            Text("\(self.gameQuestionTimer.mainGameTimerLimit)")
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.purple)
                                                 
                                                 .onAppear() {
                                                         
-                                                    self.gameTimer.instantiaiteGameTime()
+                                                    self.gameQuestionTimer.instantiateGameTimer()
                                                         
                                                 }
                                                     
                                                     .onDisappear() {
                                                         
-                                                        self.gameTimer.deinstantiateGameTime()
+                                                        self.gameQuestionTimer.deinitialiseGameTimer()
                                                     }
                                             
                                                
