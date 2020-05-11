@@ -131,26 +131,37 @@ struct Game: View {
     
     
     //Set Question Timer
-    @State private var normalTimeCounterState = true
-    
     @State private var questionTimeCountdown = 10 // 10 seconds
-    @State private var gameTimeLimit = 180
-    @State private var questionTimer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
  
-    
-    @State private var gameStart = false
-    
+
     //Set Game Timer
     @State private var gameTimeCounter = 300 //5 minues
     
- 
-    
-    @State private var gameTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-  
     @State private var gameOverStatus = false
     
     //New Game Button
     @State private var showNewGameButton = false
+    
+    
+    //Game Timer
+    @ObservedObject private var gameTimer = GameTimer()
+    @State private var gameTimeLimit = 0
+
+    
+    //Question Timer
+    @ObservedObject private var questionTimer = QuestionTimer()
+    @State private var questionTimeLimit = 0
+    
+    
+    //Function to get the variable values
+    func getglobalVariableValues() {
+        
+        self.gameTimeLimit = gameTimer.globalGameTimeLimit
+        self.questionTimeLimit = questionTimer.globaQuestionTimeLimt
+
+        
+    }
+    
     
     
     
@@ -200,6 +211,7 @@ struct Game: View {
         
         //Reset Counter
         self.questionTimeCountdown = 10
+    
        
         
 
@@ -406,6 +418,8 @@ struct Game: View {
         
     }
     
+
+    
     
   
 
@@ -502,8 +516,6 @@ struct Game: View {
                     Button(action: {
                         
                         
-                        self.gameStart = true
-                        
                         //Make Alphabet Intro disapear
                         if self.gameAlphabetIntro {
                             
@@ -598,6 +610,9 @@ struct Game: View {
                         self.showNewGameButton = false
                             self.gameTimeCounter = 300
                         }
+                        
+                       
+                        
                     }) {
                         
                         
@@ -607,6 +622,8 @@ struct Game: View {
                             .foregroundColor(Color.yellow)
                             .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
                         .shadow(radius: 6)
+                        
+                            
                         
                             
                         
@@ -1145,52 +1162,33 @@ struct Game: View {
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.gray)
                                                 
-                                            Text("\(self.questionTimeCountdown)")
+                                            Text("\(self.questionTimer.globaQuestionTimeLimt)")
                                             
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.red)
                                                 
                                                 .onAppear() {
+                                                    
                                                    
+                                                    self.questionTimer.instantiateQuestionTimer()
+                                                    
+                                                        
+                                                    
                                                     
                                             }
                                                 
-                                                
-                                                //On Exit
                                                 .onDisappear() {
-                                                    gameSpeech(word: "Bye")
-                                                    //self.questionTimer.upstream.connect().cancel()
-                                                    
-                                                    print("\(self.questionTimeCountdown)")
                                                     
                                                     
+                                                    self.questionTimer.deinstantiateQuestionTimer()
+                                                
+                                                                                                        
                                             }
                                                 
                                                 
-                                                .onReceive(questionTimer) { qTime in
-                                                    
-                                                    if self.questionTimeCountdown > 0 && self.gameTimeCounter > 0 {
-                                                        
-                                                        //Text("")
-                                                        
-                                                        self.questionTimeCountdown -= 1
-                                                        
-                                                        //Reset Word
-                                                        if self.questionTimeCountdown == 0 {
-                                                            
-                                                            self.wordTimeOver()
-                                                            gameSpeech(word: "10 Seconds Up")
-                                                        }
-                                                        
-                                                    }
-                                                    
-        
-                                                    
-                                            }
-                                            
-                                            
                                           
-                                        }
+                                        }//End of HStack
+                                        
                                         
                                         HStack(spacing:173) {
                                             Text("Correct Answer:")
@@ -1218,56 +1216,27 @@ struct Game: View {
                                         Text("Game Timer:")
                                             .font(.custom("Gill Sans", size: 20))
                                             .foregroundColor(Color.gray)
-                                    
-                                            Text("\(self.gameTimeCounter)")
+                                            
+                                            
+                                            
+                                
+                                            Text("\(self.gameTimer.globalGameTimeLimit)")
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.purple)
                                                 
-                                                
-                                                .onReceive(gameTimer) {gTime in
+                                                .onAppear() {
+                                                        
+                                                    self.gameTimer.instantiaiteGameTime()
+                                                        
+                                                }
                                                     
-                                                    
-                                                    if self.gameTimeCounter > 0 {
+                                                    .onDisappear() {
                                                         
-                                                        self.gameTimeCounter -= 1
-                                                            
-                                                        if self.gameTimeCounter > 0 && self.gameTimeCounter <= 10 {
-                                                            
-                                                            stopBackgroundSound()
-                                                            gameAudioPlayerNormal(sound: "TenSecondCountDown", type: "mp3")
-                                                        }
-                                                        
-                                                        //Put in to stop the Countdown loop - seems to be a bug
-                                                        if self.gameTimeCounter == 0 {
-                                                            
-                                                            stopMainSound()
-                                                            //self.gameTimer.upstream.connect().cancel()
-                                                        }
-                                                        
-                                                        
-                                                        
-                                                        
-                                                    } else  if self.gameTimeCounter == 0 {
-                                                    
-                                                
-                                                        
-                                                        //Change the game status to true
-                                                        self.gameOverStatus = true
-                                                        self.showNewGameButton = true
-                                                         //stopBackgroundSound()
-                                                        
-                                                        //Set the question timer to 0
-                                                        self.questionTimeCountdown = 0
-                                                        
-                                                        
-                                                       
-                                                    
-                                                    }//End the Game Counter
-                                                    
-                                                    
-                                            }//End on Receive
+                                                        self.gameTimer.deinstantiateGameTime()
+                                                    }
                                             
-                                             
+                                               
+                                            
                                             
                                             }//End HStack for Game Timer
                                         
