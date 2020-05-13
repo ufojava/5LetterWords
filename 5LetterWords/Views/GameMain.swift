@@ -131,7 +131,7 @@ struct Game: View {
     
     
     //Set Question Timer
-    @State private var questionTimeCountdown = 10 // 10 seconds
+    @State private var questionTimeCountdown = false
  
 
     //Set Game Timer
@@ -143,11 +143,16 @@ struct Game: View {
     //New Game Button
     @State private var showNewGameButton = false
     
+    //Game Over Message
+    @State private var gameOverMessage = ""
     
-
     
     //Environement Game and Question Timer
     @EnvironmentObject var gameQuestionTimer: GameQuestionTimer
+    
+    
+
+
     
     
    
@@ -200,7 +205,7 @@ struct Game: View {
         
         
         //Reset Counter
-        self.questionTimeCountdown = 10
+        //self.questionTimeCountdown = 10
     
        
         
@@ -621,6 +626,52 @@ struct Game: View {
                     
                     
                     
+                    if self.gameStatus {
+                        
+                        Spacer().frame(height:20)
+                        
+                        ZStack {
+                            Rectangle()
+                               .frame(width:200,height: 20)
+                               .foregroundColor(Color.clear)
+                            
+                                .onAppear() {
+                                    
+                                    self.gameOverMessage = "Game Over!!!"
+                            }
+                            
+                                
+                        
+                            if self.gameQuestionTimer.mainQuestionTimerLimit == 0 && self.gameQuestionTimer.mainGameTimerLimit > 0 {
+                               
+                                    Text("10 Seconds Up!!")
+                                        .foregroundColor(Color.red)
+                                        .onAppear() {
+                                            
+                                            self.wordTimeOver()
+                                        }
+                                
+                            } else if gameQuestionTimer.mainGameTimerLimit == 0  {
+                                
+                                Text(self.gameOverMessage)
+                                    .foregroundColor(Color.red)
+                                    .onAppear() {
+                                        
+                                        //Stop Question Timer
+                                        self.gameQuestionTimer.deinstantiateQuestionTimer()
+                                        
+                                      
+                                        
+                                }
+                                
+                                
+                            }
+                            
+                            
+                             
+                        }//End of ZStack
+                    }//End of game status
+                    
                     
                     
                     Spacer().frame(height:20)
@@ -1021,7 +1072,7 @@ struct Game: View {
                                 }) {
                                    
                                    Text("New Game ?")
-                                    .frame(width:110,height: 40)
+                                    .frame(width:110,height: 35)
                                     .background(Color.purple)
                                     .foregroundColor(Color.white)
                                     .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
@@ -1057,13 +1108,11 @@ struct Game: View {
                     
                     }//End of Group
                         
-                        Spacer().frame(height:20)
+                        Spacer().frame(height:10)
                         
                        
                     
-                    
-                    
-                   // Spacer().frame(height:20)
+        
                     
                     if showGameStats {
                         
@@ -1086,7 +1135,7 @@ struct Game: View {
                         .onDisappear() {
                             
                             
-                            
+                            self.gameOverMessage = ""
                             
                             self.gameAlphabetIntro = true
                             
@@ -1143,7 +1192,7 @@ struct Game: View {
                             ZStack(alignment: .leading) {
                                 
                                 Rectangle()
-                                    .frame(width:350,height: 70)
+                                    .frame(width:350,height: 60)
                                     .foregroundColor(.clear)
                                 
                                 
@@ -1165,10 +1214,13 @@ struct Game: View {
                                                    
                                                     self.gameQuestionTimer.instantiateQuestionTimer()
                                                     
-                                                        
+                                                    
+                                                      
                                                     
                                                     
                                             }
+                                                
+                                         
                                                 
                                                 .onDisappear() {
                                                     
@@ -1181,7 +1233,7 @@ struct Game: View {
                                                 
                                           
                                         }//End of HStack
-                                        
+                                       
                                         
                                         HStack(spacing:173) {
                                             Text("Correct Answer:")
@@ -1217,6 +1269,7 @@ struct Game: View {
                                                 .font(.custom("Gill Sans", size: 20))
                                                 .foregroundColor(Color.purple)
                                                 
+                                                
                                                 .onAppear() {
                                                         
                                                     self.gameQuestionTimer.instantiateGameTimer()
@@ -1249,6 +1302,7 @@ struct Game: View {
                                 .transition(.slide)
                                 .animation(.default)
                     }//End of Show Stats
+                
                     
                     
                     }//End of VStack

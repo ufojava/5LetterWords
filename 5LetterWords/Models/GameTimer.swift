@@ -16,8 +16,8 @@ import Combine
 class GameQuestionTimer: ObservableObject {
     
     //Published Variables
-    @Published var mainGameTimerLimit = 0
-    @Published var mainQuestionTimerLimit = 0
+    @Published var mainGameTimerLimit = 1
+    @Published var mainQuestionTimerLimit = 1
     
     //Subscribers
     private var gameSubscriber: AnyCancellable?
@@ -37,13 +37,12 @@ class GameQuestionTimer: ObservableObject {
                     
                     self.mainGameTimerLimit -= 1
                     
-                } else if self.mainGameTimerLimit <= 0 {
-                    
-                    gameSpeech(word: "Game Over")
                 }
                 
                 
             })
+        
+            
         
     }//End Initialise Game
     
@@ -68,18 +67,16 @@ class GameQuestionTimer: ObservableObject {
                     self.mainQuestionTimerLimit -= 1
                     
                     
-                } else if self.mainQuestionTimerLimit <= 0 {
+                } else if self.mainQuestionTimerLimit == 0 {
                     
-                    gameSpeech(word: "10 Seconds Up")
+                    gameSpeech(word: "10 seconds up")
                     self.mainQuestionTimerLimit = 10
-                    
                     
                 }
                 
-                
-                
-                
             })
+        
+        
         
     }//End Initialise Question
     
