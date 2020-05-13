@@ -204,12 +204,7 @@ struct Game: View {
         self.letterPlayedCompleted = false
         
         
-        //Reset Counter
-        //self.questionTimeCountdown = 10
-    
        
-        
-
         
         
     }//End of reset
@@ -657,8 +652,19 @@ struct Game: View {
                                     .foregroundColor(Color.red)
                                     .onAppear() {
                                         
+                                        //Game Over Status
+                                        self.gameOverStatus = true
+                                        
+                                        //Set new game button
+                                        self.showNewGameButton = true
                                         //Stop Question Timer
                                         self.gameQuestionTimer.deinstantiateQuestionTimer()
+                                        
+                                        //Stop Game Timer
+                                        self.gameQuestionTimer.deinitialiseGameTimer()
+                                        
+                                        //Stop Game Music
+                                        //stopBackgroundSound()
                                         
                                       
                                         
@@ -793,7 +799,7 @@ struct Game: View {
                                 Button(action: {
                                     
                                     
-                                    //gameAudioPlayerNormal(sound: "ReturnKeySound", type: "mp3")
+                                    
                                     
                                     if self.playedLetterOne != "" && self.playedLetterTwo != "" && self.playedLetterThree != "" && self.playedLetterFour != "" && self.playedLetterFive != "" {
                                         
@@ -811,6 +817,9 @@ struct Game: View {
                                         
                                         
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            
+                                            //Reset Counter
+                                            self.gameQuestionTimer.mainQuestionTimerLimit = 10
                                             
                                             self.resetForNewWord()
                                             self.getNewRandomWord()
@@ -1055,12 +1064,24 @@ struct Game: View {
                         if self.showNewGameButton {
                         //New Game Question
                                 Button(action: {
+                                    //Reset score
+                                    self.correctScore = 0
+                                    
+                                    //Reset Correct Answer
+                                    self.correctAnswerCount = 0
+                                    
                                     
                                     //Reset variables
                                     self.wordTimeOver()
                                     
+                                    //Instantiate game timer
+                                    self.gameQuestionTimer.instantiateGameTimer()
+                                    
+                                    //Instantiate Question Timer
+                                    self.gameQuestionTimer.instantiateQuestionTimer()
+                                    
                                     //Reset game counter
-                                    self.gameTimeCounter = 300
+                                    //self.gameQuestionTimer.mainGameTimerLimit = 300
                                     
                                     //Play background music
                                     gameAudioPlayerBackground(sound: "UfoSymphonyMultiBeat", type: "mp3")

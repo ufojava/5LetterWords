@@ -37,10 +37,25 @@ class GameQuestionTimer: ObservableObject {
                     
                     self.mainGameTimerLimit -= 1
                     
+                    if self.mainGameTimerLimit > 0 && self.mainGameTimerLimit <= 10 {
+                        
+                        //Stop backgroud music
+                        stopBackgroundSound()
+                        
+                        //Play 10 second countdown
+                        gameAudioPlayerNormal(sound: "TenSecondCountDown", type: "mp3")
+                        
+                        
+                        
+                        
+                    }
+                    
                 }
                 
                 
             })
+        
+        
         
             
         
