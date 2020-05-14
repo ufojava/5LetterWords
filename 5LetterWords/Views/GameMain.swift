@@ -130,6 +130,10 @@ struct Game: View {
     @State private var correctScore = 0
     
     
+    //Show high Score
+    @State private var  highScore = 0
+    @State private var showHighScore = true
+    
     //Set Question Timer
     @State private var questionTimeCountdown = false
  
@@ -202,6 +206,8 @@ struct Game: View {
         //Reset Collected Letters
         self.getAllPlayedLetters = ""
         self.letterPlayedCompleted = false
+        
+       
         
         
        
@@ -596,6 +602,7 @@ struct Game: View {
                        
                         //Reset Correnct Answer Counter
                         self.correctAnswerCount = 0
+                        
                         
                         if self.showNewGameButton {
                             
@@ -1138,76 +1145,95 @@ struct Game: View {
                     if showGameStats {
                         
                         VStack {
+                            
+                            HStack {
                     
-                        Text("Game Statistics")
-                            .font(.custom("Courier", size: 25))
-                            .foregroundColor(Color.red)
-                            .onAppear() {
+                                    Text("Statistics /")
+                                        .font(.custom("Courier", size: 20))
+                                        .foregroundColor(Color.red)
+                                        .onAppear() {
+                                            
+                                            self.playBackgroundMusic = true
+                                            
+                                            if self.playBackgroundMusic {
+                                                
+                                                gameAudioPlayerBackground(sound: "UfoSymphonyMultiBeat", type: "mp3")
+                                            }
+                                            
+                                        }
+                                        
+                                    .onDisappear() {
+                                        
+                                        //Save Correct Score to UserDefaults
+                                        self.highScore = self.correctScore
+                                        
+                                        //Reset score
+                                        UserDefaults.standard.set(self.highScore, forKey: "HighScore")
+                                        
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                            
+                                            self.correctScore = 0
+                                        }
+                                        
+                                        
+                                        self.gameOverMessage = ""
+                                        
+                                        self.gameAlphabetIntro = true
+                                        
+                                        //Make Alphabet Intro disapear
+                                        if self.gameAlphabetIntro  {
+                                            
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                
+                                            }
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                                self.showIntroLetterOne = true
+                                            }
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                                self.showIntroLetterTwo = true
+                                            }
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                                                self.showIntroLetterThree = true
+                                            }
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                                                self.showIntroLetterFour = true
+                                            }
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                                                self.showIntroLetterFive = true
+                                            }
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+                                                self.showIntroLetterSix = true
+                                            }
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                                                self.showIntroLetterSeven = true
+                                            }
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 9) {
+                                                self.showIntroLetterEight = true
+                                            }
+                                            
+                                            //Stop Music after alphabets are in place
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                                              
+                                                stopBackgroundSound()
+                                                
+                                            }
+                                        }
+                                        
+                                        }//End of Game Stats onDisapear
                                 
-                                self.playBackgroundMusic = true
+                                Text("High Score: \(self.highScore)")
+                                    .font(.custom("Courier", size: 20))
+                                    .foregroundColor(Color.blue)
                                 
-                                if self.playBackgroundMusic {
-                                    
-                                    gameAudioPlayerBackground(sound: "UfoSymphonyMultiBeat", type: "mp3")
-                                }
-                                
-                            }
-                            
-                        .onDisappear() {
-                            
-                            
-                            self.gameOverMessage = ""
-                            
-                            self.gameAlphabetIntro = true
-                            
-                            //Make Alphabet Intro disapear
-                            if self.gameAlphabetIntro  {
-                                
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                    
-                                }
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                    self.showIntroLetterOne = true
-                                }
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                    self.showIntroLetterTwo = true
-                                }
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                                    self.showIntroLetterThree = true
-                                }
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                                    self.showIntroLetterFour = true
-                                }
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
-                                    self.showIntroLetterFive = true
-                                }
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
-                                    self.showIntroLetterSix = true
-                                }
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
-                                    self.showIntroLetterSeven = true
-                                }
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 9) {
-                                    self.showIntroLetterEight = true
-                                }
-                                
-                                //Stop Music after alphabets are in place
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-                                  
-                                    stopBackgroundSound()
-                                    
-                                }
-                            }
-                            
                             }
                             
                             ZStack(alignment: .leading) {
@@ -1219,14 +1245,14 @@ struct Game: View {
                                 
                                     VStack(alignment: .leading) {
                                         
-                                        HStack(spacing: 175) {
+                                        HStack(spacing: 200) {
                                             Text("Question Timer:")
-                                                .font(.custom("Gill Sans", size: 20))
+                                                .font(.custom("Gill Sans", size: 15))
                                                 .foregroundColor(Color.gray)
                                                 
                                             Text("\(self.gameQuestionTimer.mainQuestionTimerLimit)")
                                             
-                                                .font(.custom("Gill Sans", size: 20))
+                                                .font(.custom("Gill Sans", size: 15))
                                                 .foregroundColor(Color.red)
                                                 
                                                 .onAppear() {
@@ -1256,38 +1282,38 @@ struct Game: View {
                                         }//End of HStack
                                        
                                         
-                                        HStack(spacing:173) {
+                                        HStack(spacing:200) {
                                             Text("Correct Answer:")
-                                                .font(.custom("Gill Sans", size: 20))
+                                                .font(.custom("Gill Sans", size: 15))
                                                 .foregroundColor(Color.gray)
                                             
                                             Text("\(self.correctAnswerCount)")
-                                                .font(.custom("Gill Sans", size: 20))
+                                                .font(.custom("Gill Sans", size: 15))
                                                 .foregroundColor(Color.blue)
                                             
                                         }
                                         
-                                        HStack(spacing:259) {
+                                        HStack(spacing:264) {
                                             Text("Score:")
-                                                .font(.custom("Gill Sans", size: 20))
+                                                .font(.custom("Gill Sans", size: 15))
                                                 .foregroundColor(Color.gray)
                                                 
                                             Text("\(self.correctScore)")
-                                                .font(.custom("Gill Sans", size: 20))
+                                                .font(.custom("Gill Sans", size: 15))
                                                 .foregroundColor(Color.init(red: 0.3, green: 0.5, blue: 0.7))
                                         }
                                         
-                                        HStack(spacing: 205) {
+                                        HStack(spacing: 221) {
                                         
                                         Text("Game Timer:")
-                                            .font(.custom("Gill Sans", size: 20))
+                                            .font(.custom("Gill Sans", size: 15))
                                             .foregroundColor(Color.gray)
                                             
                                             
                                             
                                 
                                             Text("\(self.gameQuestionTimer.mainGameTimerLimit)")
-                                                .font(.custom("Gill Sans", size: 20))
+                                                .font(.custom("Gill Sans", size: 15))
                                                 .foregroundColor(Color.purple)
                                                 
                                                 
