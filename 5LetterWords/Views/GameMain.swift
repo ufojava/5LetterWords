@@ -151,6 +151,12 @@ struct Game: View {
     @State private var gameOverMessage = ""
     
     
+    
+    //Reveal score bubble
+    @State private var showCorrectScoreBubble = false
+    @State private var correctScoreBubble = 0
+    
+    
     //Environement Game and Question Timer
     @EnvironmentObject var gameQuestionTimer: GameQuestionTimer
     
@@ -297,12 +303,25 @@ struct Game: View {
             
             if inPlayedLetter == inRandomWord {
                 
+                //Toggle show score bubble
+                self.showCorrectScoreBubble.toggle()
                 //Play Correct Sount
                 gameAudioPlayerNormal(sound: "CorrectSound", type: "mp3")
+                
+                //Assign value to the bubble
+                self.correctScoreBubble = 20
                 
             
                 //Add to the count
                 self.correctAnswerCount += 1
+                
+                //Set the show bubble back to false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    
+                    //Reset the score back to Zero
+                    self.correctScoreBubble = 0
+                    self.showCorrectScoreBubble.toggle()
+                }
                 
                 //Add Score
                 self.correctScore += 20
@@ -733,6 +752,26 @@ struct Game: View {
                             RandomLetterSquare(inletter: self.randomThirdLetter)
                             RandomLetterSquare(inletter: self.randomFourthLetter)
                             RandomLetterSquare(inletter: self.randomFifthLetter)
+                            
+                            ZStack {
+                                                               
+                               //Score Bubble
+                               
+                               Rectangle()
+                                   .frame(width:40,height: 40)
+                                   .foregroundColor(Color.blue)
+                                   .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                                   .shadow(radius: 6)
+                                
+                                    if self.showCorrectScoreBubble {
+                               
+                                       Text("\(self.correctScoreBubble)")
+                                               .foregroundColor(Color.yellow)
+                                        .font(.system(size: 20)).bold()
+                                        
+                                        
+                                    }
+                               }
                         
                         
                                 
@@ -856,18 +895,25 @@ struct Game: View {
                                     
                                 }) {
                                 
-                            ZStack {
+                                    ZStack {
+                                        
                                     
-                                    Rectangle()
-                                        .frame(width:40,height: 40)
-                                        .foregroundColor(Color.blue)
-                                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
-                                    
-                                        Text("⏎")
-                                            .foregroundColor(Color.yellow).bold()
-                                            .font(.system(size: 30))
                                             
-                            }
+                                                    Rectangle()
+                                                        .frame(width:40,height: 40)
+                                                        .foregroundColor(Color.blue)
+                                                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                                                    
+                                                        Text("⏎")
+                                                            .foregroundColor(Color.yellow).bold()
+                                                            .font(.system(size: 30))
+                                        
+                                                
+                                               
+                                        }//End of ZStack
+                                
+                                    
+                                    
                             }//End of Button
                             
                         }//End of Sorted HStack
@@ -897,6 +943,8 @@ struct Game: View {
                                     PlayedLetterSquare(inletter: self.playedLetterThree)
                                     PlayedLetterSquare(inletter: self.playedLetterFour)
                                     PlayedLetterSquare(inletter: self.playedLetterFive)
+                                    
+                                   
                                    
                                     ZStack {
                                             Rectangle()
