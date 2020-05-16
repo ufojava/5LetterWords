@@ -515,8 +515,8 @@ struct Game: View {
                         stopMainSound()
                         
                         
-                        //self.gameStatus = true
-                        self.gameStatus.toggle()
+                        self.gameStatus = true
+                        
                         
                         
                         //Make Alphabet Intro disapear
@@ -657,7 +657,7 @@ struct Game: View {
                             
                                 
                         
-                            if self.gameQuestionTimer.mainQuestionTimerLimit == 0 && self.gameQuestionTimer.mainGameTimerLimit > 0 && self.gameStatus == true {
+                            if self.gameQuestionTimer.mainQuestionTimerLimit == 0 && self.gameQuestionTimer.mainGameTimerLimit > 0 && self.gameLogoImage == false {
                                
                                     Text("10 Seconds Up!!")
                                         .foregroundColor(Color.red)
