@@ -511,7 +511,12 @@ struct Game: View {
                         
                     Button(action: {
                         
-                        self.gameStatus = true
+                        //Stop Intro Music
+                        stopMainSound()
+                        
+                        
+                        //self.gameStatus = true
+                        self.gameStatus.toggle()
                         
                         
                         //Make Alphabet Intro disapear
@@ -562,6 +567,9 @@ struct Game: View {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             
                                 self.showPickLetters.toggle()
+                                
+                                //Play game transion Sound Effect
+                                gameAudioPlayerNormal(sound: "SlideWhistleIntro", type: "mp3")
                             
                             }
                        
@@ -571,6 +579,9 @@ struct Game: View {
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 self.showPickedLetters.toggle()
+                                
+                                //Play game transion Sound Effect
+                                gameAudioPlayerNormal(sound: "SlideWhistleIntro", type: "mp3")
                             }
                         
                         
@@ -578,6 +589,8 @@ struct Game: View {
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                             self.showGameStats.toggle()
+                            
+                        
                         }
                         
                         
@@ -644,7 +657,7 @@ struct Game: View {
                             
                                 
                         
-                            if self.gameQuestionTimer.mainQuestionTimerLimit == 0 && self.gameQuestionTimer.mainGameTimerLimit > 0 {
+                            if self.gameQuestionTimer.mainQuestionTimerLimit == 0 && self.gameQuestionTimer.mainGameTimerLimit > 0 && self.gameStatus == true {
                                
                                     Text("10 Seconds Up!!")
                                         .foregroundColor(Color.red)
@@ -1164,6 +1177,9 @@ struct Game: View {
                                         
                                     .onDisappear() {
                                         
+                                        //Stop background music
+                                        stopBackgroundSound()
+                                        
                                         //Save Correct Score to UserDefaults
                                         self.highScore = self.correctScore
                                         
@@ -1186,46 +1202,68 @@ struct Game: View {
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                                 
+                                                //Play Exit Sound
+                                                gameAudioPlayerNormal(sound: "ExitSoundEffectOneSecond", type: "mp3")
+                                                
                                             }
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                                 self.showIntroLetterOne = true
+                                                
+                                                //Play Exit Sound
+                                                gameAudioPlayerNormal(sound: "ExitSoundEffectOneSecond", type: "mp3")
                                             }
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                                                 self.showIntroLetterTwo = true
+                                                
+                                                //Play Exit Sound
+                                                gameAudioPlayerNormal(sound: "ExitSoundEffectOneSecond", type: "mp3")
                                             }
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                                                 self.showIntroLetterThree = true
+                                                
+                                                //Play Exit Sound
+                                                gameAudioPlayerNormal(sound: "ExitSoundEffectOneSecond", type: "mp3")
                                             }
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                                                 self.showIntroLetterFour = true
+                                                
+                                                //Play Exit Sound
+                                                gameAudioPlayerNormal(sound: "ExitSoundEffectOneSecond", type: "mp3")
                                             }
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
                                                 self.showIntroLetterFive = true
+                                                
+                                                //Play Exit Sound
+                                                gameAudioPlayerNormal(sound: "ExitSoundEffectOneSecond", type: "mp3")
                                             }
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
                                                 self.showIntroLetterSix = true
+                                                
+                                                //Play Exit Sound
+                                                gameAudioPlayerNormal(sound: "ExitSoundEffectOneSecond", type: "mp3")
                                             }
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
                                                 self.showIntroLetterSeven = true
+                                                
+                                                //Play Exit Sound
+                                                gameAudioPlayerNormal(sound: "ExitSoundEffectOneSecond", type: "mp3")
                                             }
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 9) {
                                                 self.showIntroLetterEight = true
+                                                
+                                                //Play Exit Sound
+                                                gameAudioPlayerNormal(sound: "ExitSoundEffectOneSecond", type: "mp3")
                                             }
                                             
-                                            //Stop Music after alphabets are in place
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-                                              
-                                                stopBackgroundSound()
-                                                
-                                            }
+                                            
                                         }
                                         
                                         }//End of Game Stats onDisapear
