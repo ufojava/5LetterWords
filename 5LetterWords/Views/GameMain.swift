@@ -156,6 +156,14 @@ struct Game: View {
     @State private var showCorrectScoreBubble = false
     @State private var correctScoreBubble = 0
     
+
+    //Show Alert for non completion of letter entry
+    @State private var showAlertCompleteLetterEntry = false
+    
+    
+    
+    
+    
     
     //Environement Game and Question Timer
     @EnvironmentObject var gameQuestionTimer: GameQuestionTimer
@@ -163,11 +171,7 @@ struct Game: View {
     
 
 
-    
-    
-   
-    
-    
+
     
     
     //Reset variable for new word
@@ -337,6 +341,42 @@ struct Game: View {
         }
         
     }//End Process Answer
+    
+    //Function to process enter button pressed
+    func acceptWord() {
+      
+     
+                                                   
+                                                   
+                                                   
+                   self.getAllPlayedLetters = self.processPlayedLetters(inLetterOne: self.playedLetterOne, inLetterTwo: self.playedLetterTwo, inLetterThree: self.playedLetterThree, inLetterFour: self.playedLetterFour, inLetterFive: self.playedLetterFive)
+                   
+                   //Process correct answer
+                   self.processAnswer(inPlayedLetter: self.getAllPlayedLetters, inRandomWord: self.displayRandomWord)
+                   
+                   
+                           DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                               
+                               //Reset Counter
+                               self.gameQuestionTimer.mainQuestionTimerLimit = 10
+                               
+                               self.resetForNewWord()
+                               self.getNewRandomWord()
+                               
+                               //Check for correct display
+                               if self.shuffledRandomWord == self.displayRandomWord {
+                                   
+                                   self.shuffledRandomWord = String(self.randomWord.shuffled())
+                               }
+                               
+                
+                    
+                            }
+    
+        
+                
+    }//End of Accepted word
+    
     
     
     
@@ -857,41 +897,8 @@ struct Game: View {
                                 
                                 Button(action: {
                                     
+                                  
                                     
-                                    
-                                    
-                                    if self.playedLetterOne != "" && self.playedLetterTwo != "" && self.playedLetterThree != "" && self.playedLetterFour != "" && self.playedLetterFive != "" {
-                                        
-                                        self.letterPlayedCompleted = true
-                                        
-                                    }
-                                    
-                                    if self.letterPlayedCompleted {
-                                        
-                                        
-                                        self.getAllPlayedLetters = self.processPlayedLetters(inLetterOne: self.playedLetterOne, inLetterTwo: self.playedLetterTwo, inLetterThree: self.playedLetterThree, inLetterFour: self.playedLetterFour, inLetterFive: self.playedLetterFive)
-                                        
-                                        //Process correct answer
-                                        self.processAnswer(inPlayedLetter: self.getAllPlayedLetters, inRandomWord: self.displayRandomWord)
-                                        
-                                        
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                            
-                                            //Reset Counter
-                                            self.gameQuestionTimer.mainQuestionTimerLimit = 10
-                                            
-                                            self.resetForNewWord()
-                                            self.getNewRandomWord()
-                                            
-                                            //Check for correct display
-                                            if self.shuffledRandomWord == self.displayRandomWord {
-                                                
-                                                self.shuffledRandomWord = String(self.randomWord.shuffled())
-                                            }
-                                            
-                                        }
-                                    }
-                                
                                     
                                 }) {
                                 
@@ -907,6 +914,34 @@ struct Game: View {
                                                         Text("⏎")
                                                             .foregroundColor(Color.yellow).bold()
                                                             .font(.system(size: 30))
+                                                            .onTapGesture {
+                                                                
+                                                                if self.playedLetterOne != "" && self.playedLetterTwo != "" && self.playedLetterThree != "" && self.playedLetterFour != "" && self.playedLetterFive != "" {
+                                                                    
+                                                                    self.letterPlayedCompleted = true
+                                                                    
+                                                            
+                                                                    
+                                                                }
+                                                                
+                                                                if self.letterPlayedCompleted {
+                                                                
+                                                                self.acceptWord()
+                                                                    
+                                                                
+                                                                } else {
+                                                                    
+                                                                    self.showAlertCompleteLetterEntry = true
+                                                                }
+                                                                
+                                                                
+                            
+                                                                
+                                                            }
+                                                        .alert(isPresented: $showAlertCompleteLetterEntry) {
+                                                            
+                                                            Alert(title: Text("Incomplete Word Alert"), message: Text("Complete Word!!!"), dismissButton: .default(Text("OK"),action: {self.showAlertCompleteLetterEntry = false}))
+                                                        }
                                         
                                                 
                                                
