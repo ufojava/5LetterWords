@@ -378,6 +378,44 @@ struct Game: View {
     }//End of Accepted word
     
     
+    //Funciton to process bonus point for player
+    func processBonusPoint(inHighScore: Int, currentGameScore:Int) -> Int {
+        
+        
+        var bonusPonts = 0
+        
+        if (inHighScore >= 150 && inHighScore <= 199) && (currentGameScore >= inHighScore) {
+            
+            bonusPonts = 50 //Bonus extra point for player
+            
+            
+            
+        } else if (inHighScore >= 200 && inHighScore <= 299) && (currentGameScore >= inHighScore) {
+            
+            
+            bonusPonts = 100 //Bonus extra point for player
+            
+            
+        } else if inHighScore >= 300 && (currentGameScore >= inHighScore) {
+            
+            bonusPonts = 200 //200 extra points for player
+            
+        } else  if currentGameScore >= 300 {
+            
+            bonusPonts = 20 //No extra points for player
+            
+        } else {
+            
+            bonusPonts = 0
+        }
+        
+        
+        
+        return bonusPonts
+        
+    }
+    
+    
     
     
     //Function to get random word
@@ -1167,8 +1205,15 @@ struct Game: View {
                         if self.showNewGameButton {
                         //New Game Question
                                 Button(action: {
-                                    //Reset score
+                                    
+                                    //Set high Score
+                                    self.highScore = self.correctScore
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    //Reset score to zero
                                     self.correctScore = 0
+                                        
+                                    }
                                     
                                     //Reset Correct Answer
                                     self.correctAnswerCount = 0
@@ -1191,8 +1236,9 @@ struct Game: View {
                                     
                                     //Reset game new game button
                                     self.showNewGameButton = false
-                                   
                                     
+                                    
+                                                                        
                                 }) {
                                    
                                    Text("New Game ?")
@@ -1207,21 +1253,64 @@ struct Game: View {
                                             
                                             gameSpeech(word: "Game Over")
                                             
-                                            //Game Player Score
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                            
+                                           
+                                            
+                                            //Adding an bonus points
+                                            if self.processBonusPoint(inHighScore: self.highScore, currentGameScore: self.correctScore) > 0 {
                                                 
-                                                gameSpeech(word: "You got correct \(self.correctAnswerCount) and scored \(self.correctScore) points")
+                                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                                
+                                                gameSpeech(word: "Congratulations you have beating you last high score \(self.highScore) and have been awarded \(self.processBonusPoint(inHighScore: self.highScore, currentGameScore: self.correctScore)) points")
+                                                    
+                                                
+                                                }
+                                                
+                                                
+                                                self.correctScore = self.correctScore + self.processBonusPoint(inHighScore: self.highScore, currentGameScore: self.correctScore)
+                                                
+                                                //Total final point
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                                                    
+                                                    gameSpeech(word: "Your total score is \(self.correctScore) points")
+                                                }
+                                                
+                                                
+                                                //New game
+                                                
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 12) {
+                                                    
+                                                    gameSpeech(word: "To play again click on new game. To exit click on exit button")
+                                                }
+                                                
+                                            } else {
+                                                
+                                                gameSpeech(word: "Sorry, no bonus points have been awarded")
+                                                
+                                                //Game Player Score
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                                                    
+                                                    gameSpeech(word: "You got correct \(self.correctAnswerCount) and scored \(self.correctScore) points")
+                                                    
+                                                    
+                                                }
+                                                
+                                                
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                                                    
+                                                    gameSpeech(word: "To play again click on new game. To exit click on exit button")
+                                                }
+                                                
                                                 
                                             }
                                             
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
-                                                
-                                                gameSpeech(word: "To play again click on new game. To exit click on exit button")
-                                            }
                                             
-                                        }
+                                            
+                                            
+                                            
+                                        }//Game Status
                                         
-                                    }
+                                    }//End of Appear
                                    
                                    
                                }
