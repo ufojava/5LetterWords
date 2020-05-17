@@ -161,6 +161,15 @@ struct Game: View {
     @State private var showAlertCompleteLetterEntry = false
     
     
+    //Help Tips
+ 
+    @State private var showHelpTipsCover = true
+    @State private var showFiveLetterWordTip = true
+    @State private var showTenSecondWordTip = true
+    @State private var showThreeMinuteGameTip = true
+    @State private var showTipsEnd = true //Reset
+    
+    
     
     
     
@@ -605,138 +614,239 @@ struct Game: View {
                     }
                             
                         Spacer().frame(height:40)
+                    
+                    HStack {
                         
-                    Button(action: {
+                                    Button(action: {
+                                        
+                                        //Stop Intro Music
+                                        stopMainSound()
+                                        
+                                        
+                                        self.gameStatus = true
+                                        
+                                        
+                                        
+                                        //Make Alphabet Intro disapear
+                                        if self.gameAlphabetIntro {
+                                            
+                                                self.gameAlphabetIntro = false
+                                                self.gameAlphabetIntro = false
+                                                self.showIntroLetterOne = false
+                                                self.showIntroLetterTwo = false
+                                                self.showIntroLetterThree = false
+                                                self.showIntroLetterFour = false
+                                                self.showIntroLetterFive = false
+                                                self.showIntroLetterSix = false
+                                                self.showIntroLetterSeven = false
+                                                self.showIntroLetterEight = false
+                                          
+                                        }
+                                        
+                                        
+                                        //Make Logo disapear
+                                        
+                                        if self.gameLogoImage {
+                                        
+                                       self.gameLogoImage.toggle()
+                                            
+                                        } else if self.gameLogoImage == false {
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                                            self.gameLogoImage.toggle()
+                                                
+                                                
+                                        }
+                                        }
+                                       
+                                        
+                                        
+                                        
+                                            //Random Numbers
+                                            
+                                        self.showRandomLetters.toggle()
+                                            
+                                      
+                                        
+                                        //Picker Letters
+                                        
+                                            
+                                            //Delay delivery by 3 seconds
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            
+                                                self.showPickLetters.toggle()
+                                                
+                                                //Play game transion Sound Effect
+                                                gameAudioPlayerNormal(sound: "SlideWhistleIntro", type: "mp3")
+                                            
+                                            }
+                                       
+                                        
+                                        //Picked Letters
+                                    
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                                self.showPickedLetters.toggle()
+                                                
+                                                //Play game transion Sound Effect
+                                                gameAudioPlayerNormal(sound: "SlideWhistleIntro", type: "mp3")
+                                            }
+                                        
+                                        
+                                        //Show Game Statistics
+                                        
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                            self.showGameStats.toggle()
+                                            
+                                        
+                                        }
+                                        
+                                        
+                                        
+                                        //Set state random word to true
+                                        self.newRandomWord = true
+                                        
+                                        //Call New Random word Function
+                                        self.getNewRandomWord()
+                                       
+                                        
+                                        
+                                    
+                                        
+                                        
+                                        //Run Index for Random word
+                                        self.extractRandomWordChar(inRandomWord: self.shuffledRandomWord)
+                                        
+                                        //Run index for Sorted word
+                                        self.extractPlayerSortedChar(inSortedWord: self.sortedRandomWord)
+                                    
+                                       
+                                        //Reset Correnct Answer Counter
+                                        self.correctAnswerCount = 0
+                                        
+                                        
+                                        if self.showNewGameButton {
+                                            
+                                        self.showNewGameButton = false
+                                            self.gameTimeCounter = 300
+                                        }
+                                        
+                                       
+                                        
+                                    }) {
+                                        
+                                        
+                                        Text("Begin / Exit")
+                                            .frame(width:150,height: 40)
+                                            .background(Color.blue)
+                                            .foregroundColor(Color.yellow)
+                                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
+                                        .shadow(radius: 6)
+                                        
+                                            
+                                            
+                                    }//End of Button
                         
-                        //Stop Intro Music
-                        stopMainSound()
-                        
-                        
-                        self.gameStatus = true
-                        
-                        
-                        
-                        //Make Alphabet Intro disapear
-                        if self.gameAlphabetIntro {
+                        ZStack {
                             
-                                self.gameAlphabetIntro = false
-                                self.gameAlphabetIntro = false
-                                self.showIntroLetterOne = false
-                                self.showIntroLetterTwo = false
-                                self.showIntroLetterThree = false
-                                self.showIntroLetterFour = false
-                                self.showIntroLetterFive = false
-                                self.showIntroLetterSix = false
-                                self.showIntroLetterSeven = false
-                                self.showIntroLetterEight = false
-                          
-                        }
-                        
-                        
-                        //Make Logo disapear
-                        
-                        if self.gameLogoImage {
-                        
-                       self.gameLogoImage.toggle()
-                            
-                        } else if self.gameLogoImage == false {
-                            
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                            self.gameLogoImage.toggle()
+                            if self.showTipsEnd {
                                 
-                                
-                        }
-                        }
-                       
-                        
-                        
-                        
-                            //Random Numbers
-                            
-                        self.showRandomLetters.toggle()
-                            
-                      
-                        
-                        //Picker Letters
-                        
-                            
-                            //Delay delivery by 3 seconds
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            
-                                self.showPickLetters.toggle()
-                                
-                                //Play game transion Sound Effect
-                                gameAudioPlayerNormal(sound: "SlideWhistleIntro", type: "mp3")
+                                    Text("Reset Tips")
+                                        .frame(width:150,height: 40)
+                                        .background(Color.yellow)
+                                        .foregroundColor(Color.blue)
+                                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
+                                        .onTapGesture {
+                                            
+                                            //Reset all tips
+                                            self.showThreeMinuteGameTip.toggle()
+                                            self.showTenSecondWordTip.toggle()
+                                            self.showFiveLetterWordTip.toggle()
+                                            self.showHelpTipsCover.toggle()
+                                }
                             
                             }
-                       
-                        
-                        //Picked Letters
-                    
                             
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                self.showPickedLetters.toggle()
+                            if self.showThreeMinuteGameTip {
                                 
-                                //Play game transion Sound Effect
-                                gameAudioPlayerNormal(sound: "SlideWhistleIntro", type: "mp3")
+                                    Text("3 Min. Per Game")
+                                        .frame(width:150,height: 40)
+                                        .background(Color.yellow)
+                                        .foregroundColor(Color.blue)
+                                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
+                                        .onTapGesture {
+                                            
+                                            //Reveal Next Tip
+                                            self.showThreeMinuteGameTip.toggle()
+                                        }
+                                        .transition(.slide)
+                                        .animation(.default)
                             }
-                        
-                        
-                        //Show Game Statistics
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                            self.showGameStats.toggle()
                             
-                        
-                        }
-                        
-                        
-                        
-                        //Set state random word to true
-                        self.newRandomWord = true
-                        
-                        //Call New Random word Function
-                        self.getNewRandomWord()
-                       
-                        
+                            if self.showTenSecondWordTip {
+                                
+                                    Text("10 Sec.Per Word")
+                                        .frame(width:150,height: 40)
+                                        .background(Color.yellow)
+                                        .foregroundColor(Color.blue)
+                                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
+                                        .onTapGesture {
+                                            
+                                            //Reveal Next Tip
+                                            self.showTenSecondWordTip.toggle()
+                                        }
+                                        .transition(.slide)
+                                        .animation(.default)
+                                        
+                            }
+                            
+                            if self.showFiveLetterWordTip {
+                                                       
+                                       Text("5 Letters Word")
+                                           .frame(width:150,height: 40)
+                                           .background(Color.yellow)
+                                           .foregroundColor(Color.blue)
+                                           .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
+                                           .onTapGesture {
+                                               
+                                               //Reveal Next Tip
+                                               self.showFiveLetterWordTip.toggle()
+                                           }
+                                          .transition(.slide)
+                                          .animation(.default)
+                               }
+                            
+                            if self.showHelpTipsCover {
+                                
+                                    Text("3 Game Tips")
+                                        .frame(width:150,height: 40)
+                                        .background(Color.yellow)
+                                        .foregroundColor(Color.blue)
+                                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
+                                        .onTapGesture {
+                                            
+                                            //Reveal Next Tip
+                                            self.showHelpTipsCover.toggle()
+                                        }
+                                        .transition(.slide)
+                                        .animation(.default)
+                                    
+                                        
+                            }
+                            
+                           
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                        }//End of ZStack
                         
                     
-                        
-                        
-                        //Run Index for Random word
-                        self.extractRandomWordChar(inRandomWord: self.shuffledRandomWord)
-                        
-                        //Run index for Sorted word
-                        self.extractPlayerSortedChar(inSortedWord: self.sortedRandomWord)
-                    
-                       
-                        //Reset Correnct Answer Counter
-                        self.correctAnswerCount = 0
-                        
-                        
-                        if self.showNewGameButton {
-                            
-                        self.showNewGameButton = false
-                            self.gameTimeCounter = 300
-                        }
-                        
-                       
-                        
-                    }) {
-                        
-                        
-                        Text("Begin / Exit")
-                            .frame(width:150,height: 40)
-                            .background(Color.blue)
-                            .foregroundColor(Color.yellow)
-                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
-                        .shadow(radius: 6)
-                        
-                            
-                            
-                    }
-                    
-                    
+                    }//End of HStack
                     
                     if self.gameStatus {
                         
