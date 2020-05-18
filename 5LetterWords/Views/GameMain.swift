@@ -164,9 +164,12 @@ struct Game: View {
     //Help Tips
  
     @State private var showHelpTipsCover = true
-    @State private var showFiveLetterWordTip = true
-    @State private var showTenSecondWordTip = true
+     @State private var showTeSecondsCover = true
+    @State private var showSpellJumbledWordTip = true
+    @State private var showOrangeRackWordTip = true
     @State private var showThreeMinuteGameTip = true
+    @State private var showConfirmButton = true
+    @State private var showDeleteLetter = true
     @State private var showTipsEnd = true //Reset
     
     
@@ -556,61 +559,69 @@ struct Game: View {
     
         
                 VStack {
-                
-                        Text("Play 5")
-                            .font(.largeTitle).foregroundColor(Color.red).bold()
                     
-                            .onAppear() {
-                                
-                                
-                                self.gameLogoImage = true
-                                self.gameAlphabetIntro = true
-                                
-                                
-                                if self.gameAlphabetIntro {
+                    HStack {
+                
+                            Text("Play 5 ")
+                                .font(.largeTitle).foregroundColor(Color.red).bold()
+                        
+                                .onAppear() {
                                     
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                     
-                                    self.showIntroLetterOne = true
+                                    self.gameLogoImage = true
+                                    self.gameAlphabetIntro = true
                                     
-                                    }
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    
+                                    if self.gameAlphabetIntro {
                                         
-                                        self.showIntroLetterTwo = true
-                                    }
-                                    
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                         
-                                        self.showIntroLetterThree = true
-                                    }
-                                    
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                                        self.showIntroLetterOne = true
                                         
-                                        self.showIntroLetterFour = true
-                                    }
-                                    
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                                        }
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                            
+                                            self.showIntroLetterTwo = true
+                                        }
                                         
-                                        self.showIntroLetterFive = true
-                                    }
-                                    
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                            
+                                            self.showIntroLetterThree = true
+                                        }
                                         
-                                        self.showIntroLetterSix = true
-                                    }
-                                    
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                                            
+                                            self.showIntroLetterFour = true
+                                        }
                                         
-                                        self.showIntroLetterSeven = true
-                                    }
-                                    
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                                            
+                                            self.showIntroLetterFive = true
+                                        }
                                         
-                                        self.showIntroLetterEight = true
-                                    }
-                                    
-                                    
-                                }//End of gameAlphabet Intro
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                                            
+                                            self.showIntroLetterSix = true
+                                        }
+                                        
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+                                            
+                                            self.showIntroLetterSeven = true
+                                        }
+                                        
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                                            
+                                            self.showIntroLetterEight = true
+                                        }
+                                        
+                                        
+                                    }//End of gameAlphabet Intro
+                        }
+                        
+                        Image("WoodBlock")
+                            .resizable()
+                            .frame(width:40,height: 40)
+                        
                     }
                             
                         Spacer().frame(height:40)
@@ -752,7 +763,7 @@ struct Game: View {
                             if self.showTipsEnd {
                                 
                                     Text("Reset Tips")
-                                        .frame(width:150,height: 40)
+                                        .frame(width:230,height: 40)
                                         .background(Color.yellow)
                                         .foregroundColor(Color.blue)
                                         .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
@@ -760,57 +771,115 @@ struct Game: View {
                                             
                                             //Reset all tips
                                             self.showThreeMinuteGameTip.toggle()
-                                            self.showTenSecondWordTip.toggle()
-                                            self.showFiveLetterWordTip.toggle()
+                                            self.showOrangeRackWordTip.toggle()
+                                            self.showSpellJumbledWordTip.toggle()
                                             self.showHelpTipsCover.toggle()
+                                            self.showTeSecondsCover.toggle()
+                                            self.showConfirmButton.toggle()
+                                            self.showDeleteLetter.toggle()
                                 }
                             
                             }
                             
+                            if self.showDeleteLetter{
+                                                           
+                                           Text("Blue X delete letter")
+                                                   .frame(width:230,height: 40)
+                                                   .background(Color.yellow)
+                                                   .foregroundColor(Color.blue)
+                                                   .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
+                                                   .onTapGesture {
+                                                       
+                                                       //Reveal Next Tip
+                                                       self.showDeleteLetter.toggle()
+                                                   }
+                                                   .transition(.slide)
+                                                   .animation(.default)
+                                       
+                                       
+                                   }
+                            
+                            
+                            if self.showConfirmButton {
+                                                           
+                                       Text("Blue button ⏎ to confirm")
+                                               .frame(width:230,height: 40)
+                                               .background(Color.yellow)
+                                               .foregroundColor(Color.blue)
+                                               .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
+                                               .onTapGesture {
+                                                   
+                                                   //Reveal Next Tip
+                                                   self.showConfirmButton.toggle()
+                                               }
+                                               .transition(.slide)
+                                               .animation(.default)
+                                   
+                                   
+                               }
+                            
                             if self.showThreeMinuteGameTip {
                                 
-                                    Text("3 Min. Per Game")
-                                        .frame(width:150,height: 40)
+                                    Text("Game play is 3 minutes")
+                                            .frame(width:230,height: 40)
+                                            .background(Color.yellow)
+                                            .foregroundColor(Color.blue)
+                                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
+                                            .onTapGesture {
+                                                
+                                                //Reveal Next Tip
+                                                self.showThreeMinuteGameTip.toggle()
+                                            }
+                                            .transition(.slide)
+                                            .animation(.default)
+                                
+                                
+                            }
+                            
+                            if self.showTeSecondsCover {
+                                
+                                    Text("You have 10 seconds")
+                                        .frame(width:230,height: 40)
                                         .background(Color.yellow)
                                         .foregroundColor(Color.blue)
                                         .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
                                         .onTapGesture {
                                             
                                             //Reveal Next Tip
-                                            self.showThreeMinuteGameTip.toggle()
+                                            self.showTeSecondsCover.toggle()
                                         }
                                         .transition(.slide)
                                         .animation(.default)
                             }
                             
-                            if self.showTenSecondWordTip {
+                            if self.showOrangeRackWordTip {
                                 
-                                    Text("10 Sec.Per Word")
-                                        .frame(width:150,height: 40)
+                                    Text("Use orange rack")
+                                        .frame(width:230,height: 40)
                                         .background(Color.yellow)
                                         .foregroundColor(Color.blue)
                                         .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
                                         .onTapGesture {
                                             
                                             //Reveal Next Tip
-                                            self.showTenSecondWordTip.toggle()
+                                            self.showOrangeRackWordTip.toggle()
                                         }
                                         .transition(.slide)
                                         .animation(.default)
                                         
                             }
                             
-                            if self.showFiveLetterWordTip {
+                            if self.showSpellJumbledWordTip {
                                                        
-                                       Text("5 Letters Word")
-                                           .frame(width:150,height: 40)
+                                       Text("Spell jumbled word")
+                                           .frame(width:230,height: 40)
                                            .background(Color.yellow)
                                            .foregroundColor(Color.blue)
                                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))
                                            .onTapGesture {
                                                
                                                //Reveal Next Tip
-                                               self.showFiveLetterWordTip.toggle()
+                                               self.showSpellJumbledWordTip.toggle()
                                            }
                                           .transition(.slide)
                                           .animation(.default)
@@ -818,8 +887,8 @@ struct Game: View {
                             
                             if self.showHelpTipsCover {
                                 
-                                    Text("3 Game Tips")
-                                        .frame(width:150,height: 40)
+                                    Text("Instructions")
+                                        .frame(width:230,height: 40)
                                         .background(Color.yellow)
                                         .foregroundColor(Color.blue)
                                         .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 1))

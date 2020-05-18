@@ -39,7 +39,7 @@
 		032DC3E0245CDC6900350C6B /* UfoSymphonyShaker.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = UfoSymphonyShaker.mp3; sourceTree = "<group>"; };
 		032DC3E2245CE6B800350C6B /* UfoSymphonyMultiBeat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = UfoSymphonyMultiBeat.mp3; sourceTree = "<group>"; };
 		032DC3E4245F26C800350C6B /* WrongAnswerSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = WrongAnswerSound.mp3; sourceTree = "<group>"; };
-		0365F6E32454BC42002B220E /* Play5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Play5.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0365F6E32454BC42002B220E /* Play 5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Play 5.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0365F6E62454BC42002B220E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0365F6E82454BC42002B220E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0365F6EA2454BC42002B220E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		0365F6E42454BC42002B220E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0365F6E32454BC42002B220E /* Play5.app */,
+				0365F6E32454BC42002B220E /* Play 5.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -156,7 +156,7 @@
 			);
 			name = 5LetterWords;
 			productName = 5LetterWords;
-			productReference = 0365F6E32454BC42002B220E /* Play5.app */;
+			productReference = 0365F6E32454BC42002B220E /* Play 5.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -374,7 +374,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "ufookoro-me.com.-Play5";
-				PRODUCT_NAME = Play5;
+				PRODUCT_NAME = "Play 5";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -394,7 +394,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "ufookoro-me.com.-Play5";
-				PRODUCT_NAME = Play5;
+				PRODUCT_NAME = "Play 5";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
