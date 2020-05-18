@@ -557,7 +557,7 @@ struct Game: View {
         
                 VStack {
                 
-                        Text("5cramble")
+                        Text("Play 5")
                             .font(.largeTitle).foregroundColor(Color.red).bold()
                     
                             .onAppear() {
