@@ -365,6 +365,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"5LetterWords/Preview Content\"";
 				DEVELOPMENT_TEAM = FUA8MUZTUH;
 				ENABLE_PREVIEWS = YES;
@@ -373,10 +374,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "ufookoro-me.com.-Play5";
 				PRODUCT_NAME = "Play 5";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -385,6 +387,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"5LetterWords/Preview Content\"";
 				DEVELOPMENT_TEAM = FUA8MUZTUH;
 				ENABLE_PREVIEWS = YES;
@@ -393,10 +396,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "ufookoro-me.com.-Play5";
 				PRODUCT_NAME = "Play 5";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

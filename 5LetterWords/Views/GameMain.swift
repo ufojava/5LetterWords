@@ -624,7 +624,7 @@ struct Game: View {
                         
                     }
                             
-                        Spacer().frame(height:40)
+                        //Spacer().frame(height:40)
                     
                     HStack {
                         
@@ -919,7 +919,7 @@ struct Game: View {
                     
                     if self.gameStatus {
                         
-                        Spacer().frame(height:20)
+                        //Spacer().frame(height:20)
                         
                         ZStack {
                             Rectangle()
@@ -976,7 +976,7 @@ struct Game: View {
                     
                     
                     
-                    Spacer().frame(height:20)
+                    //Spacer().frame(height:20)
                     
                     
                     
@@ -991,7 +991,7 @@ struct Game: View {
                         
                         //Shuffled Random Letter
                         
-                        Spacer().frame(height:30)
+                        //Spacer().frame(height:30)
                         
                         if showRandomLetters {
                         
@@ -1040,7 +1040,7 @@ struct Game: View {
                        
                         if self.showPickLetters {
                             
-                        Spacer().frame(height:30)
+                        //Spacer().frame(height:30)
                         Text("Pick Letter")
                             .font(.custom("Chalkboard SE", size: 25))
                             .foregroundColor(Color.gray).bold()
@@ -1180,7 +1180,7 @@ struct Game: View {
                         
                         if self.showPickedLetters {
                         
-                        Spacer().frame(height:30)
+                        //Spacer().frame(height:30)
                         Text("Picked Letters")
                             .font(.custom("Chalkboard SE", size: 25))
                             .foregroundColor(Color.gray).bold()
@@ -1294,7 +1294,7 @@ struct Game: View {
                             
                    
                         
-                        Spacer().frame(height:30)
+                        //Spacer().frame(height:30)
                         
                         VStack {
                             
@@ -1373,7 +1373,7 @@ struct Game: View {
                         
                         
                         
-                        Spacer().frame(height:20)
+                        //Spacer().frame(height:20)
                         
                         ZStack {
                                 Rectangle()
@@ -1500,7 +1500,7 @@ struct Game: View {
                     
                     }//End of Group
                         
-                        Spacer().frame(height:10)
+                        //Spacer().frame(height:10)
                         
                        
                     
